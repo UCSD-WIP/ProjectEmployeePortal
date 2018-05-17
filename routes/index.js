@@ -4,7 +4,12 @@ var auth = require('../utils/auth.js');
 var passport = require('passport');
 var router = express.Router();
 
-const buildMessage = function(req) {
+/**
+ * Returns the message data to be sent in the response
+ *
+ * @param {Object} req - request data from client
+ */
+function buildMessage(req) {
   return {
     title: 'Title',
     user: req.user,
@@ -35,7 +40,7 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
   successFlash: true,
-  failureFlash: true, 
+  failureFlash: true,
   session: true
 }));
 
@@ -43,36 +48,32 @@ router.post('/login', passport.authenticate('local', {
 router.post('/register', function(req, res, next) {
 
   // Check if all fields exist
-  if(req.body.username && req.body.password && req.body.password_confirm) {
+  if (req.body.username && req.body.password && req.body.password_confirm) {
 
     // Ensure password and confirmation password match
-    if(req.body.password != req.body.password_confirm) {
+    if (req.body.password != req.body.password_confirm) {
       req.flash('error', 'Passwords provided do not match');
-      res.redirect('/register');
-      return next();
+      return res.redirect('/register');
     }
 
     // Register a new candidate
     return auth.registerCandidate(req.body.username, req.body.password)
       .then(() => {
         req.flash('success', "Account successfully registered");
-        res.redirect('/login');
-        return next();
+        return res.redirect('/login');
       }).catch((err) => {
-        if(err instanceof auth.AuthenticationError) {
+        if (err instanceof auth.AuthenticationError) {
           req.flash('error', err.message);
         } else {
           console.error(err)
           req.flash('error', "An internal server error has occured"); // hide server error
         }
-        res.redirect('/register');
-        return next();
-      });      
+        return res.redirect('/register');
+      });
 
   } else {
     req.flash('error', "Please include all input.");
-    res.redirect('/register');
-    return next();
+    return res.redirect('/register');
   }
 });
 
