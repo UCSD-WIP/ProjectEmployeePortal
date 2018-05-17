@@ -1,5 +1,10 @@
 <div class='jumbotron container'>
   <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
-  <a class="btn btn-primary" href="login" role="button">Login</a>
+
+  {{#if user}}
+    <p>Welcome back, {{user.username}}!</p>
+  {{else}}
+    <p>Welcome to {{title}}</p>
+    <a class="btn btn-primary" href="login" role="button">Login</a>
+  {{/if}}
 </div>
