@@ -20,6 +20,44 @@ function buildMessage(req) {
   }
 }
 
+function buildStoriesMessage(req) {
+  return {
+    title: 'Title',
+    style: 'stylesheets/style_stories.css',
+    user: req.user,
+    error: req.flash('error'),
+    warning: req.flash('warning'),
+    info: req.flash('info'),
+    success: req.flash('success'),
+    stories: [
+      {
+        title: "title1",
+        description: "hello world!"
+      },
+      {
+        title: "title2",
+        description: "ENG 100D"
+      },
+      {
+        title: "title3",
+        description: "Coding"
+      },
+      {
+        title: "title4",
+        description: "UC San Diego"
+      },
+      {
+        title: "title5",
+        description: "Bootstrap"
+      },
+      {
+        title: "title6",
+        description: "I can't wait for summer."
+      }
+    ]
+  }
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', buildMessage(req));
@@ -33,6 +71,11 @@ router.get('/login', function(req, res, next) {
 /* GET register page */
 router.get('/register', function(req, res, next) {
   res.render('register', buildMessage(req));
+});
+
+/* GET stories page */
+router.get('/stories', function(req, res, next) {
+  res.render('stories', buildStoriesMessage(req));
 });
 
 /* POST login - authenticate user */
