@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 // Register partials
 hbs.registerPartial("alerts", fs.readFileSync("views/alerts.hbs", 'utf8'));
-
+hbs.registerPartial("navbar", fs.readFileSync("views/navbar.hbs", 'utf8'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
