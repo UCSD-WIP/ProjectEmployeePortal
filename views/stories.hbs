@@ -1,13 +1,9 @@
 <div class="card-deck">
   {{#each stories}}
   <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{title}}</h5>
-      <p class="card-text">{{description}}</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
+    <img class="card-img-top" src={{story_img}} alt="I love corgis!">
+    <div class="card-footer bg-transparent">
+      <h6 class="card-title">{{title}}</h6>
     </div>
   </div>
   {{/each}}

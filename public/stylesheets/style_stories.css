@@ -1,9 +1,10 @@
 .card-deck {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, 1fr);
   padding: 20px;
 }
 
 .card {
   margin: 20px;
+  background-color: transparent;
 }
