@@ -22,7 +22,16 @@ db.authenticate()
         "id integer primary key autoincrement," +
         "username string not null unique," +
         "password string not null," +
-        "role_id integer references Role(id));")
+        "role_id integer references Role(id));"),
+      db.query("create table if not exists Jobs (" +
+      "id integer primary key autoincrement," +
+      "company_name string not null unique," +
+      "position string not null," +
+      "job_field string not null," +
+      "location string not null," +
+      "timestamp datetime not null," +
+      "content string not null," +
+      "email string not null);")
     ]);
   }).then((queryResults) => {
     // Populate roles if not done so already
