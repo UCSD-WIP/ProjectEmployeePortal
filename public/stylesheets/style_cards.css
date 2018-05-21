@@ -1,0 +1,28 @@
+.card-deck {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.card {
+  margin: 20px;
+  background-color: transparent;
+}
+
+.story-title {
+  text-align: center;
+  margin: 15px;
+  padding-top: 5px;
+}
+
+.job-title {
+  text-align: center;
+  margin: 15px;
+  padding-top: 15px;
+}
+
+.card-body {
+  font-size: 50%;
+}

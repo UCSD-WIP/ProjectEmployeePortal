@@ -29,7 +29,7 @@ function buildMessage(req) {
 //TODO: Link this to backend work
 function buildStoriesMessage(req) {
   return {
-    style: 'stylesheets/style_stories.css',
+    style: 'stylesheets/style_cards.css',
     standard_message_info: buildMessage(req),
     stories: [
       {
@@ -66,6 +66,70 @@ function buildStoriesMessage(req) {
   }
 }
 
+/**
+ * Returns the message data to be sent in the job
+ *
+ * @param {Object} req - request data from client
+ *
+ */
+//TODO: Link this to backend work
+function buildJobsMessage(req) {
+  return {
+    style: 'stylesheets/style_cards.css',
+    standard_message_info: buildMessage(req),
+    job: [
+      {
+        company: "company1",
+        position: "aerospace engineer",
+        location: "Washington D.C",
+        date_posted: "January 1, 2018",
+        field: "Aerospace Engineering",
+        logo:"https://i.ytimg.com/vi/opKg3fyqWt4/hqdefault.jpg"
+      },
+      {
+        company: "company2",
+        position: "bioengineering engineer",
+        location: "La Jolla, CA",
+        date_posted: "January 2, 2018",
+        field: "Bioengineering",
+        logo:"https://www.gannett-cdn.com/-mm-/e0b7d12476623b253869250f04db61c5ffb8135c/c=0-471-5753-3721&r=x329&c=580x326/local/-/media/2017/07/19/USATODAY/USATODAY/636360861812848734-Dog-Photos-17.jpg"
+      },
+      {
+        company: "company3",
+        position: "Computer Engineer",
+        location: "San Francisco, CA",
+        date_posted: "January 3, 2018",
+        field: "Computer Science",
+        logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3yYXqR0ep-l84DnUE_UStXgNLd8xngpWKvmeqKgCoR622Sep_"
+      },
+      {
+        company: "company 4",
+        position: "mechanical engineer",
+        location: "Seattle, WA",
+        date_posted: "January 4, 2018",
+        field: "Mechanical Engineering",
+        logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ko5CaIY6PNcmA7L9W7DDXjh0OzC5olphW0Zh2564q_7Uecb9qg"
+      },
+      {
+        company: "company5",
+        position: "electrical engineer",
+        location: "New York, NY",
+        date_posted: "January 5, 2018",
+        field: "Electrical Engineering",
+        logo:"https://www.hd-wallpapersdownload.com/script/bulk-upload/hd-cute-dog-images-pics.jpg"
+      },
+      {
+        company: "company6",
+        position: "chemical engineer",
+        location: "La Jolla, CA",
+        date_posted: "January 6, 2018",
+        field: "Chemical Engineering",
+        logo:"https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg"
+      }
+    ]
+  }
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', buildMessage(req));
@@ -84,6 +148,11 @@ router.get('/register', function(req, res, next) {
 /* GET stories page */
 router.get('/stories', function(req, res, next) {
   res.render('stories', buildStoriesMessage(req));
+});
+
+/* GET jobs page */
+router.get('/jobs', function(req, res, next) {
+  res.render('jobs', buildJobsMessage(req));
 });
 
 /* POST login - authenticate user */

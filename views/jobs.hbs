@@ -1,0 +1,36 @@
+<div>
+  <h2 class="job-title"> Job Posting <h2>
+  <!-- Card Light -->
+  <div class="card-deck">
+    {{#each job}}
+    <div class="card">
+    <!-- Card image -->
+    <div class="view overlay">
+      <img class="card-img-top" src={{logo}} alt="Time to find a job.">
+      <a>
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!-- Card content -->
+    <div class="card-body">
+
+      <!-- Social shares button -->
+      <a class="activator waves-effect waves-light mr-4"><i class="fa fa-share-alt"></i></a>
+      <!-- Title -->
+      <h4 class="card-title">{{company}}</h4>
+      <hr>
+      <!-- Text -->
+      <p><strong>Field:</strong> {{field}}</p>
+      <p><strong>Job Position:</strong> {{position}}</p>
+      <p><strong>Location:</strong> {{location}}</p>
+      <p><strong>Date posted:</strong> {{date_posted}}</p>
+      <!-- Link -->
+      <a href="#!" class="black-text d-flex justify-content-end"><h5>View Job <i class="fa fa-angle-double-right"></i></h5></a>
+    </div>
+    </div>
+    {{/each}}
+  </div>
+
+</div>
+<!-- Card Light -->

@@ -11,6 +11,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
+// for helper functions such as formatDate
+//var Handlebars     = require('handlebars');
+//var HandlebarsIntl = require('handlebars-intl');
+
 var app = express();
 
 // Database setup
@@ -22,6 +26,8 @@ app.set('view engine', 'hbs');
 // Register partials
 hbs.registerPartial("alerts", fs.readFileSync("views/alerts.hbs", 'utf8'));
 hbs.registerPartial("navbar", fs.readFileSync("views/navbar.hbs", 'utf8'));
+// Register helper functions
+//HandlebarsIntl.registerWith(Handlebars);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
