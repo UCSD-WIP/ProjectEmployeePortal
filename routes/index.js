@@ -9,7 +9,7 @@ var router = express.Router();
  *
  * @param {Object} req - request data from client
  */
-function buildMessage(req) {
+function buildDefaultMessage(req) {
   return {
     title: 'Title',
     user: req.user,
@@ -28,9 +28,7 @@ function buildMessage(req) {
  */
 //TODO: Link this to backend work
 function buildStoriesMessage(req) {
-  return {
-    style: 'stylesheets/style_stories.css',
-    standard_message_info: buildMessage(req),
+  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style_stories.css',
     stories: [
       {
         title: "title1",
@@ -63,22 +61,22 @@ function buildStoriesMessage(req) {
         story_img:"https://az616578.vo.msecnd.net/files/2016/07/24/6360498492827782071652557381_corgi%20header.jpg"
       }
     ]
-  }
+  })
 }
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', buildMessage(req));
+  res.render('index', buildDefaultMessage(req));
 });
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
-  res.render('login', buildMessage(req));
+  res.render('login', buildDefaultMessage(req));
 });
 
 /* GET register page */
 router.get('/register', function(req, res, next) {
-  res.render('register', buildMessage(req));
+  res.render('register', buildDefaultMessage(req));
 });
 
 /* GET stories page */
