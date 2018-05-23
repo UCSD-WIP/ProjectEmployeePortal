@@ -45,7 +45,7 @@
 
 .job_list {
   float: right;
-  width: 45rem;
+  width: 80%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
