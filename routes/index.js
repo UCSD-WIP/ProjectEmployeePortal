@@ -20,6 +20,26 @@ function buildMessage(req) {
   }
 }
 
+function buildStory(req){
+  return{
+    title: 'hello',
+    style:'stylesheets/style_story.css',
+    user: req.user,
+    error: req.flash('error'),
+    warning: req.flash('warning'),
+    info: req.flash('info'),
+    success: req.flash('success'),
+    description: "hello world!",
+    text: "This is where the text goes!",
+    author:"Gwen",
+    date:"5/18/18"
+  }
+}
+
+router.get('/story', function(req, res, next){
+  res.render('story', buildStory(req));
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', buildMessage(req));
