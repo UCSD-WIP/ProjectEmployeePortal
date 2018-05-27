@@ -1,0 +1,132 @@
+.story-card-deck {
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 10px;
+  margin: auto;
+  padding-left: 5%;
+}
+
+.story-card {
+  background-color: transparent;
+  border-radius: 30px;
+  margin: 25px;
+  width: 20rem;
+  height: 20rem;
+  border-style: solid;
+  border-radius: 30px;
+  border-color: #e9ecef;
+
+}
+
+.story-card-no-img {
+  align-self: center;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 30px;
+  margin: 25px;
+  width: 20rem;
+  height: 20rem;
+  border-style: solid;
+  border-radius: 30px;
+  border-color: #e9ecef;
+}
+
+.story-title {
+  text-align: center;
+  margin: 10px;
+  padding-top: 20px;
+}
+
+.story-text {
+  font-size: 50%;
+  text-align: center;
+}
+
+.story-title-no-img {
+  margin-top: 25%;
+  text-align: center;
+  align-items: center;
+}
+
+.story-text-no-img {
+  text-align: center;
+  align-items: center;
+}
+
+.card-img-top {
+  border-radius: 30px 30px 0px 0px;
+  max-height: 12rem;
+}
+
+.content {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.content .content-overlay {
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  height: 20rem;
+  width: 20rem;
+  left: 1.5rem;
+  top: 1.5rem;
+  bottom: 0;
+  right: ;
+  opacity: 0;
+  border-radius: 10%;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.content:hover .content-overlay{
+  opacity: 1;
+}
+
+.content-image{
+  width: 100%;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content:hover .content-details{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.content-details h3{
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
+.content-details p{
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.fadeIn-top{
+  top: 20%;
+}

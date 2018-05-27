@@ -28,7 +28,7 @@ function buildDefaultMessage(req) {
  */
 //TODO: Link this to backend work
 function buildStoriesMessage(req) {
-  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style_4.css',
+  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style.css',
     stories: [
       {
         title: "title1",
@@ -59,6 +59,10 @@ function buildStoriesMessage(req) {
         title: "title6",
         description: "I can't wait for summer.",
         story_img:"https://az616578.vo.msecnd.net/files/2016/07/24/6360498492827782071652557381_corgi%20header.jpg"
+      },
+      {
+        title: "title7",
+        description: "Yay for summer.",
       }
     ]
   })
@@ -72,7 +76,7 @@ function buildStoriesMessage(req) {
  */
 //TODO: Link this to backend work
 function buildJobsMessage(req) {
-  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style_4.css',
+  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style_1.css',
     job: [
       {
         company: "company1",
@@ -142,13 +146,13 @@ router.get('/register', function(req, res, next) {
 });
 
 /* GET stories page */
-router.get('/stories_3', function(req, res, next) {
-  res.render('stories_3', buildStoriesMessage(req));
+router.get('/stories', function(req, res, next) {
+  res.render('stories', buildStoriesMessage(req));
 });
 
 /* GET jobs page */
-router.get('/jobs_3', function(req, res, next) {
-  res.render('jobs_3', buildJobsMessage(req));
+router.get('/jobs_1', function(req, res, next) {
+  res.render('jobs_1', buildJobsMessage(req));
 });
 
 /* POST login - authenticate user */
