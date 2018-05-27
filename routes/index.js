@@ -21,7 +21,7 @@ function buildDefaultMessage(req) {
 }
 
 /**
- * Returns the message data to be sent in the story
+ * Returns the message data to be sent in the stories page
  *
  * @param {Object} req - request data from client
  *
@@ -64,9 +64,28 @@ function buildStoriesMessage(req) {
   })
 }
 
+
+/**
+ * Returns the message data to be sent in the index page
+ *
+ * @param {Object} req - request data from client
+ *
+ */
+function buildIndexMessage(req) {
+  return Object.assign(buildDefaultMessage(req), {
+    style: 'stylesheets/style_index.css',
+    stories: [
+    {
+      title: "Engineering Your Future",
+      description: "With [TITLE], I was able to start my career in social good and pave my future.",
+      story_img: "https://www-kiva-org-0.global.ssl.fastly.net/img/orig/ef07c1a7d1021d1d977b0f88047cdc71.jpg"
+    }]
+  })
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', buildDefaultMessage(req));
+  res.render('index', buildIndexMessage(req));
 });
 
 /* GET login page */
