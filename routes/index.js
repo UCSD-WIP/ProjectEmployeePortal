@@ -12,6 +12,7 @@ var router = express.Router();
 function buildDefaultMessage(req) {
   return {
     title: 'Title',
+    current_page: null,
     user: req.user,
     error: req.flash('error'),
     warning: req.flash('warning'),
@@ -21,14 +22,16 @@ function buildDefaultMessage(req) {
 }
 
 /**
- * Returns the message data to be sent in the story
+ * Returns the message data to be sent in the `stories` page
  *
  * @param {Object} req - request data from client
  *
  */
 //TODO: Link this to backend work
 function buildStoriesMessage(req) {
-  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style_stories.css',
+  return Object.assign(buildDefaultMessage(req), {
+  	style: 'stylesheets/style_stories.css',
+    current_page: 'stories',
     stories: [
       {
         title: "title1",
@@ -61,8 +64,33 @@ function buildStoriesMessage(req) {
         story_img:"https://az616578.vo.msecnd.net/files/2016/07/24/6360498492827782071652557381_corgi%20header.jpg"
       }
     ]
-  })
+  });
 }
+
+/**
+ * Returns the message data to be sent in the `login` page
+ *
+ * @param {Object} req - request data from client
+ *
+ */
+function buildLoginMessage(req) {
+  return Object.assign(buildDefaultMessage(req), {
+    current_page: 'login'
+  });
+}
+
+/**
+ * Returns the message data to be sent in the `register` page
+ *
+ * @param {Object} req - request data from client
+ *
+ */
+function builgRegisterMessage(req) {
+  return Object.assign(buildDefaultMessage(req), {
+    current_page: 'register'
+  });
+}
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -71,12 +99,19 @@ router.get('/', function(req, res, next) {
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
-  res.render('login', buildDefaultMessage(req));
+  res.render('login', buildLoginMessage(req));
 });
 
 /* GET register page */
 router.get('/register', function(req, res, next) {
-  res.render('register', buildDefaultMessage(req));
+  res.render('register', builgRegisterMessage(req));
+});
+
+/* GET logout */
+router.get('/logout', function(req, res) {
+    req.logout();
+    req.flash('success', "You have successfully logged out");
+    res.redirect('/login');
 });
 
 /* GET stories page */
