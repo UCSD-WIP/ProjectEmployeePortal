@@ -9,7 +9,7 @@ var router = express.Router();
  *
  * @param {Object} req - request data from client
  */
-function buildMessage(req) {
+function buildDefaultMessage(req) {
   return {
     title: 'Title',
     user: req.user,
@@ -20,19 +20,68 @@ function buildMessage(req) {
   }
 }
 
+/**
+ * Returns the message data to be sent in the story
+ *
+ * @param {Object} req - request data from client
+ *
+ */
+//TODO: Link this to backend work
+function buildStoriesMessage(req) {
+  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style_stories.css',
+    stories: [
+      {
+        title: "title1",
+        description: "hello world!",
+        story_img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
+      },
+      {
+        title: "title2",
+        description: "ENG 100D",
+        story_img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8XsEiCxFg4rXAt0HF9uGLpWcHMmgoaoLRQF7IFB8n0ZJr-d9kGw"
+      },
+      {
+        title: "title3",
+        description: "Coding",
+        story_img:"https://cdn.akc.org/Marketplace/Breeds/Pembroke_Welsh_Corgi_SERP.jpg"
+      },
+      {
+        title: "title4",
+        description: "UC San Diego",
+        story_img:"http://cdn3-www.dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg"
+      },
+      {
+        title: "title5",
+        description: "Bootstrap",
+        story_img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-VI5yIWAug8KLC3tBGHmL4hKaA5NBkjT0d0_LYB42hm-4oE1rw"
+      },
+      {
+        title: "title6",
+        description: "I can't wait for summer.",
+        story_img:"https://az616578.vo.msecnd.net/files/2016/07/24/6360498492827782071652557381_corgi%20header.jpg"
+      }
+    ]
+  })
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', buildMessage(req));
+  res.render('index', buildDefaultMessage(req));
 });
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
-  res.render('login', buildMessage(req));
+  res.render('login', buildDefaultMessage(req));
 });
 
 /* GET register page */
 router.get('/register', function(req, res, next) {
-  res.render('register', buildMessage(req));
+  res.render('register', buildDefaultMessage(req));
+});
+
+/* GET stories page */
+router.get('/stories', function(req, res, next) {
+  res.render('stories', buildStoriesMessage(req));
 });
 
 /* POST login - authenticate user */
