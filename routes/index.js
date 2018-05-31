@@ -124,7 +124,7 @@ function buildIndexMessage(req) {
       {
         title: "title2",
         description: "ENG 100D",
-        story_img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8XsEiCxFg4rXAt0HF9uGLpWcHMmgoaoLRQF7IFB8n0ZJr-d9kGw"
+        story_img:"https://az616578.vo.msecnd.net/files/2016/07/24/6360498492827782071652557381_corgi%20header.jpg"
       },
       {
         title: "title3",
