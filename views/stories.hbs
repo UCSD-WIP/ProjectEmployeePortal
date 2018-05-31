@@ -5,7 +5,7 @@
       {{#if image}}
         <div class="content">
           <div class="story-card">
-           <a href="/story">
+           <a href="/story?id={{id}}">
             <div class="content-overlay"></div>
 
               <img class="card-img-top" src={{image}}>
@@ -22,7 +22,7 @@
       {{else}}
         <div class="content">
           <div class="story-card-no-img">
-          <a href="/story">
+          <a href="/story?id={{id}}">
             <div class="content-overlay"></div>
               <!-- Title -->
               <h3 class="story-title-no-img">{{title}}</h3>
