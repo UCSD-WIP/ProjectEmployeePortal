@@ -1,0 +1,26 @@
+<!-- Page Header -->
+<body>
+    <header class="masthead" style="background-image:url({{story.img}})">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1 style="font-weight: 800;">{{story.title}}</h1>
+              <h2 class="subheading" style="font-weight: 800;">{{story.description}}</h2>
+              <span class="meta">Posted by {{story.author}} on {{story.date}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p>{{story.text}}</p>
+          </div>
+        </div>
+      </div>
+</body>
