@@ -1,8 +1,12 @@
+var createError = require('http-errors');
 var express = require('express');
 var db = require('../utils/db.js');
 var auth = require('../utils/auth.js');
 var passport = require('passport');
 var router = express.Router();
+
+// Custom class for handling message errors
+class MessageError extends Error {};
 
 /**
  * Returns the message data to be sent in the response
@@ -21,25 +25,26 @@ function buildDefaultMessage(req, current_page) {
   }
 }
 
-function buildStoryMessage(req, res, next) {
-  if(!req.query.id){
-    return Promise.reject(next(createError(404)));
+function buildStoryMessage(req) {
+  if(!req.query.id) {
+    return Promise.reject(new MessageError("Id does not exist"));
   }
+  
   let message = Object.assign(buildDefaultMessage(req, "stories"),{
     style:'stylesheets/style_story.css',
   });
+
   return db.query('select * from Story where id=?', {
     replacements: [req.query.id],
     type:db.QueryTypes.SELECT
-  })
-    .then((queryResults) => {
-      let story = queryResults[0]
+  }).then((queryResults) => {
+    let story = queryResults[0]
 
-      if(story && story.length != 0) {
-        message["story"] = story
-        return message;
-      }
-    });
+    if(story && story.length != 0) {
+      message["story"] = story
+      return message;
+    }
+  });
 }
 
 /**
@@ -162,7 +167,12 @@ router.get('/stories', function(req, res, next) {
   buildStoriesMessage(req)
     .then((message) => {
       res.render('stories', message);
-    }) 
+    })
+    .catch((error) => {
+      // Unexpected internal server error
+      console.error(error);
+      next(createError(500));
+    })
 });
 
 /* GET jobs page */
@@ -175,6 +185,17 @@ router.get('/story', function(req, res, next){
   buildStoryMessage(req)
     .then((message) => {
       res.render('story', message)
+    })
+    .catch((error) => {
+      console.error(error);
+
+      if(error instanceof MessageError) {
+        // Error is how the page was retrieved
+        next(createError(404));
+      } else {
+        // Unexpected internal server error
+        next(createError(500));
+      }
     })
 });
 
