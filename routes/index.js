@@ -12,6 +12,7 @@ var router = express.Router();
 function buildDefaultMessage(req) {
   return {
     title: 'Title',
+    current_page: null,
     user: req.user,
     error: req.flash('error'),
     warning: req.flash('warning'),
@@ -20,15 +21,32 @@ function buildDefaultMessage(req) {
   }
 }
 
+function buildStoryMessage(req) {
+  return Object.assign(buildDefaultMessage(req),{
+    style:'stylesheets/style_story.css',
+    current_page:'stories',
+    story: {
+      title: 'hello',
+      description: "hello world!",
+      text: "This is where the text goes!",
+      author:"Gwen",
+      date:"5/18/18",
+      img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
+    }
+  });
+}
+
 /**
- * Returns the message data to be sent in the stories page
+ * Returns the message data to be sent in the `stories` page
  *
  * @param {Object} req - request data from client
  *
  */
 //TODO: Link this to backend work
 function buildStoriesMessage(req) {
-  return Object.assign(buildDefaultMessage(req), {style: 'stylesheets/style_stories.css',
+  return Object.assign(buildDefaultMessage(req), {
+  	style: 'stylesheets/style_stories.css',
+    current_page: 'stories',
     stories: [
       {
         title: "title1",
@@ -61,9 +79,32 @@ function buildStoriesMessage(req) {
         story_img:"https://az616578.vo.msecnd.net/files/2016/07/24/6360498492827782071652557381_corgi%20header.jpg"
       }
     ]
-  })
+  });
 }
 
+/**
+ * Returns the message data to be sent in the `login` page
+ *
+ * @param {Object} req - request data from client
+ *
+ */
+function buildLoginMessage(req) {
+  return Object.assign(buildDefaultMessage(req), {
+    current_page: 'login'
+  });
+}
+
+/**
+ * Returns the message data to be sent in the `register` page
+ *
+ * @param {Object} req - request data from client
+ *
+ */
+function builgRegisterMessage(req) {
+  return Object.assign(buildDefaultMessage(req), {
+    current_page: 'register'
+  });
+}
 
 /**
  * Returns the message data to be sent in the index page
@@ -90,17 +131,29 @@ router.get('/', function(req, res, next) {
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
-  res.render('login', buildDefaultMessage(req));
+  res.render('login', buildLoginMessage(req));
 });
 
 /* GET register page */
 router.get('/register', function(req, res, next) {
-  res.render('register', buildDefaultMessage(req));
+  res.render('register', builgRegisterMessage(req));
+});
+
+/* GET logout */
+router.get('/logout', function(req, res) {
+    req.logout();
+    req.flash('success', "You have successfully logged out");
+    res.redirect('/login');
 });
 
 /* GET stories page */
 router.get('/stories', function(req, res, next) {
   res.render('stories', buildStoriesMessage(req));
+});
+
+/* GET story page */
+router.get('/story', function(req, res, next){
+  res.render('story', buildStoryMessage(req));
 });
 
 /* POST login - authenticate user */
