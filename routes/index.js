@@ -21,18 +21,25 @@ function buildDefaultMessage(req, current_page) {
   }
 }
 
-function buildStoryMessage(req) {
-  return Object.assign(buildDefaultMessage(req, "stories"),{
+function buildStoryMessage(req, res, next) {
+  if(!req.query.id){
+    return Promise.reject(next(createError(404)));
+  }
+  let message = Object.assign(buildDefaultMessage(req, "stories"),{
     style:'stylesheets/style_story.css',
-    story: {
-      title: 'hello',
-      description: "hello world!",
-      text: "This is where the text goes!",
-      author:"Gwen",
-      date:"5/18/18",
-      img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
-    }
   });
+  return db.query('select * from Story where id=?', {
+    replacements: [req.query.id],
+    type:db.QueryTypes.SELECT
+  })
+    .then((queryResults) => {
+      let story = queryResults[0]
+
+      if(story && story.length != 0) {
+        message["story"] = story
+        return message;
+      }
+    });
 }
 
 /**
@@ -165,7 +172,10 @@ router.get('/jobs_2', function(req, res, next) {
 
 /* GET story page */
 router.get('/story', function(req, res, next){
-  res.render('story', buildStoryMessage(req));
+  buildStoryMessage(req)
+    .then((message) => {
+      res.render('story', message)
+    })
 });
 
 /* POST login - authenticate user */
