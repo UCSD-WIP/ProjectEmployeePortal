@@ -21,26 +21,20 @@ function buildDefaultMessage(req) {
   }
 }
 
-function buildStory(req){
-  return{
-    title: 'hello',
+function buildStory(req) {
+  return {
     style:'stylesheets/style_story.css',
-    user: req.user,
-    error: req.flash('error'),
-    warning: req.flash('warning'),
-    info: req.flash('info'),
-    success: req.flash('success'),
-    description: "hello world!",
-    text: "This is where the text goes!",
-    author:"Gwen",
-    date:"5/18/18",
-    img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
+    current_page:'stories',
+    story: {
+      title: 'hello',
+      description: "hello world!",
+      text: "This is where the text goes!",
+      author:"Gwen",
+      date:"5/18/18",
+      img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
+    }
   }
 }
-
-router.get('/story', function(req, res, next){
-  res.render('story', buildStory(req));
-});
 
 /**
  * Returns the message data to be sent in the `stories` page
@@ -138,6 +132,11 @@ router.get('/logout', function(req, res) {
 /* GET stories page */
 router.get('/stories', function(req, res, next) {
   res.render('stories', buildStoriesMessage(req));
+});
+
+/* GET story page */
+router.get('/story', function(req, res, next){
+  res.render('story', buildStory(req));
 });
 
 /* POST login - authenticate user */
