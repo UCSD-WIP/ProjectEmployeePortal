@@ -20,6 +20,7 @@
 }
 
 .story-card-no-img {
+  justify-content: center;
   align-self: center;
   align-items: center;
   background-color: transparent;
@@ -44,7 +45,7 @@
 }
 
 .story-title-no-img {
-  margin-top: 25%;
+  margin-top: 35%;
   text-align: center;
   align-items: center;
 }

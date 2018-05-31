@@ -1,0 +1,84 @@
+
+  <!-- List group -->
+  <div class="list-group" id="myList" role="tablist">
+    {{#each job}}
+      {{#if @first}}
+      <a class="list-group-item list-group-item-action active" data-toggle="list" href={{id}} role="tab">
+        <h5>{{company}}</h5>
+        <br>
+        <p>{{position}}</p>
+      </a>
+      {{else}}
+      <a class="list-group-item list-group-item-action" data-toggle="list" href={{id}} role="tab">
+        <h5>{{company}}</h5>
+        <br>
+        <p>{{position}}</p>
+      </a>
+      {{/if}}
+    {{/each}}
+  </div>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    {{#each job}}
+      {{#if @first}}
+        <div class="tab-pane active" id={{id}} role="tabpanel">
+          <div class="card">
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" src={{logo}} alt="Time to find a job.">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body">
+
+            <!-- Social shares button -->
+            <a class="activator waves-effect waves-light mr-4"><i class="fa fa-share-alt"></i></a>
+            <!-- Title -->
+            <h4 class="card-title">{{company}}</h4>
+            <hr>
+            <!-- Text -->
+            <p><strong>Field:</strong> {{field}}</p>
+            <p><strong>Job Position:</strong> {{position}}</p>
+            <p><strong>Location:</strong> {{location}}</p>
+            <p><strong>Date posted:</strong> {{date_posted}}</p>
+            <!-- Link -->
+            <a href="#!" class="btn btn-primary">Apply</a>
+          </div>
+          </div>
+        </div>
+      {{else}}
+        <div class="tab-pane" id={{id}} role="tabpanel">
+          <div class="card">
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" src={{logo}} alt="Time to find a job.">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body">
+
+            <!-- Social shares button -->
+            <a class="activator waves-effect waves-light mr-4"><i class="fa fa-share-alt"></i></a>
+            <!-- Title -->
+            <h4 class="card-title">{{company}}</h4>
+            <hr>
+            <!-- Text -->
+            <p><strong>Field:</strong> {{field}}</p>
+            <p><strong>Job Position:</strong> {{position}}</p>
+            <p><strong>Location:</strong> {{location}}</p>
+            <p><strong>Date posted:</strong> {{date_posted}}</p>
+            <!-- Link -->
+            <a href="#!" class="btn btn-primary">Apply</a>
+          </div>
+          </div>
+        </div>
+      {{/if}}
+    {{/each}}
+  </div>
