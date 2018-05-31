@@ -21,8 +21,8 @@ function buildDefaultMessage(req) {
   }
 }
 
-function buildStory(req) {
-  return {
+function buildStoryMessage(req) {
+  return Object.assign(buildDefaultMessage(req),{
     style:'stylesheets/style_story.css',
     current_page:'stories',
     story: {
@@ -33,7 +33,7 @@ function buildStory(req) {
       date:"5/18/18",
       img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
     }
-  }
+  });
 }
 
 /**
@@ -136,7 +136,7 @@ router.get('/stories', function(req, res, next) {
 
 /* GET story page */
 router.get('/story', function(req, res, next){
-  res.render('story', buildStory(req));
+  res.render('story', buildStoryMessage(req));
 });
 
 /* POST login - authenticate user */
