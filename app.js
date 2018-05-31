@@ -28,17 +28,15 @@ app.set('view engine', 'hbs');
 // Register partials
 hbs.registerPartial("alerts", fs.readFileSync("views/alerts.hbs", 'utf8'));
 hbs.registerPartial("navbar", fs.readFileSync("views/navbar.hbs", 'utf8'));
-<<<<<<< HEAD
 // Register helper functions
 //HandlebarsIntl.registerWith(Handlebars);
-=======
+
 // Register helpers
 hbs.registerHelper('if_equals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
 /* Express Configuration */
->>>>>>> 22a9db1b72c5d402705b4614a6e64462087c4a89
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
