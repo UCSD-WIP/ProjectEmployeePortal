@@ -184,6 +184,7 @@ router.post('/register', function(req, res, next) {
 
 /* POST register-admin - try to register a new admin */
 router.post('/register-admin', (req, res) => {
+  console.log(request.connection.remoteAddress);
   // check the request is originating from localhost...
   if (req.headers.host.split(':')[0] === 'localhost') {
 
@@ -192,8 +193,6 @@ router.post('/register-admin', (req, res) => {
 
       // Ensure password and confirmation password match
       if (req.body.password != req.body.password_confirm) {
-        // req.flash('error', 'Passwords provided do not match');
-        // return res.redirect('/register-admin');
         return res.status(500).json("Password does not match");
       }
 
@@ -201,32 +200,24 @@ router.post('/register-admin', (req, res) => {
       return auth.registerAdmin(req.body.username, req.body.password)
         .then(() => {
           // redirect user to login screen on success
-          // req.flash('success', "Admin Account successfully registered");
-          // return res.redirect('/login');
           res.status(200).json("Admin Account successfully registered");
         })
         .catch((err) => {
           if (err instanceof auth.AuthenticationError) {
             // let user know what the error message was (pertaining to passportJS)
-            // req.flash('error', err.message);
             res.status(err.message);
           } else {
             // something more serious has occurred, output error to console, give user simplified version
             console.error(err);
-            // req.flash('error', 'An internal server error has occurred')
             res.status(500).json("Internal server error");
           }
         });
     } else {
       // let user know that they need to fill all fields
-      // req.flash('error', 'Please include all input');
-      // return res.redirect('/register-admin');
       res.status(500).json("please enter all information: username, password, confirm password");
     }
   } else {
     // let user know that access is denied, do not let them know there is a host requirement
-    // req.flash('error', 'Access denied');
-    // return res.redirect('/register-admin');
     res.status(500).json("access denied");
   }
 })
