@@ -1,8 +1,9 @@
-var express = require('express');
-var db = require('../utils/db.js');
-var auth = require('../utils/auth.js');
-var passport = require('passport');
-var router = express.Router();
+const express = require('express');
+const db = require('../utils/db.js');
+const auth = require('../utils/auth.js');
+const passport = require('passport');
+const _ = require('underscore');
+const router = express.Router();
 
 /**
  * Returns the message data to be sent in the response
@@ -184,9 +185,9 @@ router.post('/register', function(req, res, next) {
 
 /* POST register-admin - try to register a new admin */
 router.post('/register-admin', (req, res) => {
-  console.log(request.connection.remoteAddress);
   // check the request is originating from localhost...
-  if (req.headers.host.split(':')[0] === 'localhost') {
+  if (req.headers.host.split(':')[0] === 'localhost' &&
+      _.last(req.connection.remoteAddress.split(':')) === '127.0.0.1') {
 
     // check if all fields are filled
     if (req.body.username && req.body.password && req.body.password_confirm) {
@@ -214,7 +215,7 @@ router.post('/register-admin', (req, res) => {
         });
     } else {
       // let user know that they need to fill all fields
-      res.status(500).json("please enter all information: username, password, confirm password");
+      res.status(500).json("please enter all information: username, password, password_confirm");
     }
   } else {
     // let user know that access is denied, do not let them know there is a host requirement
