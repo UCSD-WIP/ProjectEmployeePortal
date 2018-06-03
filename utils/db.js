@@ -7,6 +7,7 @@ const Sequelize = require('sequelize');
 const db = new Sequelize('database', null, null, {
   dialect: 'sqlite',
   storage: ':memory:', // For now, store in memory
+  logging: false,
 })
 
 // Database population
