@@ -11,10 +11,6 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
-// for helper functions such as formatDate
-//var Handlebars     = require('handlebars');
-//var HandlebarsIntl = require('handlebars-intl');
-
 var app = express();
 
 // Database setup
