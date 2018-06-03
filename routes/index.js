@@ -1,8 +1,9 @@
-var express = require('express');
-var db = require('../utils/db.js');
-var auth = require('../utils/auth.js');
-var passport = require('passport');
-var router = express.Router();
+const express = require('express');
+const db = require('../utils/db.js');
+const auth = require('../utils/auth.js');
+const passport = require('passport');
+const _ = require('underscore');
+const router = express.Router();
 
 /**
  * Returns the message data to be sent in the response
@@ -208,5 +209,46 @@ router.post('/register', function(req, res, next) {
     return res.redirect('/register');
   }
 });
+
+
+/* POST register-admin - try to register a new admin */
+router.post('/register-admin', (req, res) => {
+  // check the request is originating from localhost...
+  if (req.headers.host.split(':')[0] === 'localhost' &&
+      _.last(req.connection.remoteAddress.split(':')) === '127.0.0.1') {
+
+    // check if all fields are filled
+    if (req.body.username && req.body.password && req.body.password_confirm) {
+
+      // Ensure password and confirmation password match
+      if (req.body.password != req.body.password_confirm) {
+        return res.status(500).json("Password does not match");
+      }
+
+      // attempt to register the admin
+      return auth.registerAdmin(req.body.username, req.body.password)
+        .then(() => {
+          // redirect user to login screen on success
+          res.status(200).json("Admin Account successfully registered");
+        })
+        .catch((err) => {
+          if (err instanceof auth.AuthenticationError) {
+            // let user know what the error message was (pertaining to passportJS)
+            res.status(err.message);
+          } else {
+            // something more serious has occurred, output error to console, give user simplified version
+            console.error(err);
+            res.status(500).json("Internal server error");
+          }
+        });
+    } else {
+      // let user know that they need to fill all fields
+      res.status(500).json("please enter all information: username, password, password_confirm");
+    }
+  } else {
+    // let user know that access is denied, do not let them know there is a host requirement
+    res.status(500).json("access denied");
+  }
+})
 
 module.exports = router;
