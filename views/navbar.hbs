@@ -3,8 +3,10 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    {{!-- Content to the left side of the navbar --}}
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="/about">About</a>
       </li>
@@ -12,14 +14,25 @@
         <a class="nav-link" href="#">Jobs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/stories">Stories</a>
+        <a class="nav-link {{#if_equals current_page "stories"}}active{{/if_equals}}" href="/stories">Stories</a>
+      </li>
+    </ul>
+
+    {{!-- Content to the right side of the navbar --}}
+    <ul class="navbar-nav ml-auto">
+      {{!-- Show 'Sign In' or 'Sign Out' based off of logged in status --}}
+      {{#if user}}
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Sign Out</a>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link {{#if_equals current_page "login"}}active{{/if_equals}}" href="/login">Sign In</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/login">Log In</a>
+        <a class="nav-link {{#if_equals current_page "register"}}active{{/if_equals}}" href="/register">Sign Up</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/register">Sign Up</a>
-      </li>
+      {{/if}}
     </ul>
   </div>
 </nav>
