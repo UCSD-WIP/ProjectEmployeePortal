@@ -163,6 +163,10 @@ router.get('/stories', function(req, res, next) {
   res.render('stories', buildStoriesMessage(req));
 });
 
+/* GET about page */
+router.get('/about', function(req, res, next) {
+  res.render('about', buildStoriesMessage(req));
+
 /* GET story page */
 router.get('/story', function(req, res, next){
   res.render('story', buildStoryMessage(req));
