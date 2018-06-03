@@ -236,6 +236,10 @@ router.get('/job', function(req, res, next) {
   res.render('job', buildJobMessage(req));
 });
 
+/* GET about page */
+router.get('/about', function(req, res, next) {
+  res.render('about', buildStoriesMessage(req));
+
 /* GET story page */
 router.get('/story', function(req, res, next){
   buildStoryMessage(req)
@@ -301,8 +305,11 @@ router.post('/register', function(req, res, next) {
 /* POST register-admin - try to register a new admin */
 router.post('/register-admin', (req, res) => {
   // check the request is originating from localhost...
+  
+  console.log(req.connection.remoteAddress);
+  let addr = _.last(req.connection.remoteAddress.split(':'));
   if (req.headers.host.split(':')[0] === 'localhost' &&
-      _.last(req.connection.remoteAddress.split(':')) === '127.0.0.1') {
+      (addr === '127.0.0.1') || addr == '1') {
 
     // check if all fields are filled
     if (req.body.username && req.body.password && req.body.password_confirm) {
