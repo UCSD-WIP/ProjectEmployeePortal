@@ -1,6 +1,7 @@
 const readline = require('readline');
 const request = require('request');
 
+// allocate variables to store username, password, and confirm_password
 let username = '';
 let password = '';
 let confirm_password = '';
@@ -10,18 +11,26 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+// ask the user for username
 rl.query = "Username : ";
 rl.question(rl.query, (output) => {
   username = output;
+
+  // mute stdout for password prompts
   rl.stdoutMuted = true;
   rl.query = "Password : ";
+
+  // request password
   rl.question(rl.query, (output) => {
       password = output;
       rl.query = "Confirm_password : ";
-      rl.question(rl.querym, (output) => {
+
+      // request password confirmation
+      rl.question(rl.query, (output) => {
           confirm_password = output;
           rl.close();
 
+          // check for username length, password length, and make sure password and confirm_password match
           if(username.length < 4 || password.length < 6 || password != confirm_password){
             console.error("\n\nPlease make sure:\n");
             console.error("username is at least 4 characters long");
@@ -29,6 +38,8 @@ rl.question(rl.query, (output) => {
             console.error("ensure the password and confirm password match");
             return;
           }
+
+          // submit post request to localhost:3000/register-admin
           request.post({
             url: 'http://localhost:3000/register-admin',
             json: true,
@@ -50,6 +61,7 @@ rl.question(rl.query, (output) => {
   });
 });
 
+// overwrite stdout behavior when typing passwords
 rl._writeToOutput = function _writeToOutput(stringToWrite) {
   if (rl.stdoutMuted)
     rl.output.write("\x1B[2K\x1B[200D"+rl.query+printObfuscatedString(rl));
@@ -57,6 +69,11 @@ rl._writeToOutput = function _writeToOutput(stringToWrite) {
     rl.output.write(stringToWrite);
 };
 
+/**
+ * printObfuscatedString() generate an obfuscated string of the password
+ * 
+ * @param {ReadLine} readline object containing password being typed
+*/
 const printObfuscatedString = (rl) => {
     let line = ""; 
     for(let i = 0; i < rl.line.length; i++){
