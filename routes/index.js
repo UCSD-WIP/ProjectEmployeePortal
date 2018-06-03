@@ -134,6 +134,19 @@ function buildJobsMessage(req) {
   )
 }
 
+function buildJobMessage(req){
+  return Object.assign(buildDefaultMessage(req, "jobs"), {
+    job: {
+      company: "company1",
+      position: "aerospace engineer",
+      location: "La Jolla, CA",
+      date_posted: "5/30/18",
+      field: "Aerospace Engineer",
+      logo: "https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg",
+      id: 1
+    }
+  })
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -168,6 +181,10 @@ router.get('/stories', function(req, res, next) {
 /* GET jobs page */
 router.get('/jobs_2', function(req, res, next) {
   res.render('jobs_2', buildJobsMessage(req));
+});
+
+router.get('/job', function(req, res, next) {
+  res.render('job', buildJobMessage(req));
 });
 
 /* GET story page */
