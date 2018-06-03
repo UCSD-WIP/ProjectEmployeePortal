@@ -18,14 +18,12 @@ var db = require('./utils/db.js');
 
 
 /* Handlebars View Engine Configuration */
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 // Register partials
 hbs.registerPartial("alerts", fs.readFileSync("views/alerts.hbs", 'utf8'));
 hbs.registerPartial("navbar", fs.readFileSync("views/navbar.hbs", 'utf8'));
-// Register helper functions
-//HandlebarsIntl.registerWith(Handlebars);
 
 // Register helpers
 hbs.registerHelper('if_equals', function(arg1, arg2, options) {
