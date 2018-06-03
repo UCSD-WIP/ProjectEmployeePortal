@@ -214,7 +214,7 @@ router.post('/register', function(req, res, next) {
 /* POST register-admin - try to register a new admin */
 router.post('/register-admin', (req, res) => {
   // check the request is originating from localhost...
-  console.log(req.body);
+  
   console.log(req.connection.remoteAddress);
   let addr = _.last(req.connection.remoteAddress.split(':'));
   if (req.headers.host.split(':')[0] === 'localhost' &&
