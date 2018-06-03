@@ -7,7 +7,13 @@
             <div class="col-md-8">
                 <h1 class="display-3">{{job.position}}</h1>
                 <p class="lead">{{job.company}} - posed on {{job.date_posted}}</p>
-                <p><a class="btn btn-lg btn-success" href="#" role="button">Apply today</a></p>
+                {{#if user}}
+                    <p>
+                        Please email your resume to: {{email}}.
+                    </p>
+                {{else}}
+                    <p><a class="btn btn-lg btn-success" href="/login" role="button">Apply today</a></p>
+                {{/if}}
             </div>
         </div>
     </div>

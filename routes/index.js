@@ -157,6 +157,7 @@ function buildJobMessage(req){
       logo: "https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg",
       description: "Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.",
       experience: "Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.",
+      email:"wip@eng100d.com",
       id: 1
     }
   })
