@@ -9,7 +9,7 @@
                 <p class="lead">{{job.company}} - posed on {{job.date_posted}}</p>
                 {{#if user}}
                     <p>
-                        Please email your resume to: {{email}}.
+                        Please email your resume to: {{job.email}}.
                     </p>
                 {{else}}
                     <p><a class="btn btn-lg btn-success" href="/login" role="button">Apply today</a></p>

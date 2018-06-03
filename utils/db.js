@@ -21,7 +21,6 @@ db.authenticate()
         "role_name string not null unique);"),
       db.query("create table if not exists User (" +
         "id integer primary key autoincrement," +
-        "name string not null," +
         "username string not null unique," +
         "password string not null," +
         "role_id integer references Role(id));"),
