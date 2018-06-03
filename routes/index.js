@@ -56,7 +56,7 @@ function buildStoryMessage(req) {
  */
 function buildStoriesMessage(req) {
   let message = Object.assign(buildDefaultMessage(req, "stories"), {
-    style: 'stylesheets/style.css',
+    style: 'stylesheets/style_stories.css',
   });
 
   return db.query('select * from Story limit 6')
@@ -79,7 +79,7 @@ function buildStoriesMessage(req) {
 //TODO: Link this to backend work
 function buildJobsMessage(req) {
   return Object.assign(buildDefaultMessage(req, "jobs"), 
-    { style: 'stylesheets/style_3.css',
+    { style: 'stylesheets/style_jobs.css',
       job: [
         {
           company: "company1",
@@ -88,6 +88,7 @@ function buildJobsMessage(req) {
           date_posted: "January 1, 2018",
           field: "Aerospace Engineering",
           logo:"https://i.ytimg.com/vi/opKg3fyqWt4/hqdefault.jpg",
+          icon: "fas fa-rocket",
           id: 1
         },
         {
@@ -97,6 +98,7 @@ function buildJobsMessage(req) {
           date_posted: "January 2, 2018",
           field: "Bioengineering",
           logo:"https://www.gannett-cdn.com/-mm-/e0b7d12476623b253869250f04db61c5ffb8135c/c=0-471-5753-3721&r=x329&c=580x326/local/-/media/2017/07/19/USATODAY/USATODAY/636360861812848734-Dog-Photos-17.jpg",
+          icon: "fas fa-dna",
           id: 2
         },
         {
@@ -106,6 +108,7 @@ function buildJobsMessage(req) {
           date_posted: "January 3, 2018",
           field: "Computer Science",
           logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3yYXqR0ep-l84DnUE_UStXgNLd8xngpWKvmeqKgCoR622Sep_",
+          icon: "fas fa-desktop",
           id: 3
         },
         {
@@ -115,6 +118,7 @@ function buildJobsMessage(req) {
           date_posted: "January 4, 2018",
           field: "Mechanical Engineering",
           logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ko5CaIY6PNcmA7L9W7DDXjh0OzC5olphW0Zh2564q_7Uecb9qg",
+          icon:"fas fa-cogs",
           id: 4
         },
         {
@@ -124,6 +128,7 @@ function buildJobsMessage(req) {
           date_posted: "January 5, 2018",
           field: "Electrical Engineering",
           logo:"https://www.hd-wallpapersdownload.com/script/bulk-upload/hd-cute-dog-images-pics.jpg",
+          icon: "fas fa-plug",
           id: 5
         },
         {
@@ -133,6 +138,7 @@ function buildJobsMessage(req) {
           date_posted: "January 6, 2018",
           field: "Chemical Engineering",
           logo:"https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg",
+          icon:"fas fa-flask",
           id: 6
         }
       ]
@@ -221,8 +227,8 @@ router.get('/stories', function(req, res, next) {
 });
 
 /* GET jobs page */
-router.get('/jobs_2', function(req, res, next) {
-  res.render('jobs_2', buildJobsMessage(req));
+router.get('/jobs', function(req, res, next) {
+  res.render('jobs', buildJobsMessage(req));
 });
 
 router.get('/job', function(req, res, next) {
