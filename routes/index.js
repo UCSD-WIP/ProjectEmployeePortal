@@ -1,19 +1,23 @@
-const express = require('express');
-const db = require('../utils/db.js');
-const auth = require('../utils/auth.js');
-const passport = require('passport');
-const _ = require('underscore');
-const router = express.Router();
+var createError = require('http-errors');
+var express = require('express');
+var db = require('../utils/db.js');
+var auth = require('../utils/auth.js');
+var passport = require('passport');
+var router = express.Router();
+var _ = require('underscore');
+
+// Custom class for handling message errors
+class MessageError extends Error {};
 
 /**
  * Returns the message data to be sent in the response
  *
  * @param {Object} req - request data from client
  */
-function buildDefaultMessage(req) {
+function buildDefaultMessage(req, current_page) {
   return {
     title: 'Title',
-    current_page: null,
+    current_page: current_page,
     user: req.user,
     error: req.flash('error'),
     warning: req.flash('warning'),
@@ -23,16 +27,23 @@ function buildDefaultMessage(req) {
 }
 
 function buildStoryMessage(req) {
-  return Object.assign(buildDefaultMessage(req),{
+  if(!req.query.id) {
+    return Promise.reject(new MessageError("Id does not exist"));
+  }
+  
+  let message = Object.assign(buildDefaultMessage(req, "stories"),{
     style:'stylesheets/style_story.css',
-    current_page:'stories',
-    story: {
-      title: 'hello',
-      description: "hello world!",
-      text: "This is where the text goes!",
-      author:"Gwen",
-      date:"5/18/18",
-      img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
+  });
+
+  return db.query('select * from Story where id=?', {
+    replacements: [req.query.id],
+    type:db.QueryTypes.SELECT
+  }).then((queryResults) => {
+    let story = queryResults[0]
+
+    if(story && story.length != 0) {
+      message["story"] = story
+      return message;
     }
   });
 }
@@ -43,68 +54,113 @@ function buildStoryMessage(req) {
  * @param {Object} req - request data from client
  *
  */
-//TODO: Link this to backend work
 function buildStoriesMessage(req) {
-  return Object.assign(buildDefaultMessage(req), {
-  	style: 'stylesheets/style_stories.css',
-    current_page: 'stories',
-    stories: [
-      {
-        title: "title1",
-        description: "hello world!",
-        story_img:"http://trupanion.com/blog/wp-content/uploads/2017/09/GettyImages-512536165.jpg"
-      },
-      {
-        title: "title2",
-        description: "ENG 100D",
-        story_img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8XsEiCxFg4rXAt0HF9uGLpWcHMmgoaoLRQF7IFB8n0ZJr-d9kGw"
-      },
-      {
-        title: "title3",
-        description: "Coding",
-        story_img:"https://cdn.akc.org/Marketplace/Breeds/Pembroke_Welsh_Corgi_SERP.jpg"
-      },
-      {
-        title: "title4",
-        description: "UC San Diego",
-        story_img:"http://cdn3-www.dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg"
-      },
-      {
-        title: "title5",
-        description: "Bootstrap",
-        story_img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-VI5yIWAug8KLC3tBGHmL4hKaA5NBkjT0d0_LYB42hm-4oE1rw"
-      },
-      {
-        title: "title6",
-        description: "I can't wait for summer.",
-        story_img:"https://az616578.vo.msecnd.net/files/2016/07/24/6360498492827782071652557381_corgi%20header.jpg"
+  let message = Object.assign(buildDefaultMessage(req, "stories"), {
+    style: 'stylesheets/style_stories.css',
+  });
+
+  return db.query('select * from Story limit 6')
+    .then((queryResults) => {
+      let stories = queryResults[0]
+
+      if(stories && stories.length != 0) {
+        message["stories"] = stories
+        return message;
       }
-    ]
-  });
+    });
 }
 
 /**
- * Returns the message data to be sent in the `login` page
+ * Returns the message data to be sent in the job
  *
  * @param {Object} req - request data from client
  *
  */
-function buildLoginMessage(req) {
-  return Object.assign(buildDefaultMessage(req), {
-    current_page: 'login'
-  });
+//TODO: Link this to backend work
+function buildJobsMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "jobs"), 
+    { style: 'stylesheets/style_jobs.css',
+      job: [
+        {
+          company: "company1",
+          position: "aerospace engineer",
+          location: "Washington D.C",
+          date_posted: "January 1, 2018",
+          field: "Aerospace Engineering",
+          logo:"https://i.ytimg.com/vi/opKg3fyqWt4/hqdefault.jpg",
+          icon: "fas fa-rocket",
+          id: 1
+        },
+        {
+          company: "company2",
+          position: "bioengineering engineer",
+          location: "La Jolla, CA",
+          date_posted: "January 2, 2018",
+          field: "Bioengineering",
+          logo:"https://www.gannett-cdn.com/-mm-/e0b7d12476623b253869250f04db61c5ffb8135c/c=0-471-5753-3721&r=x329&c=580x326/local/-/media/2017/07/19/USATODAY/USATODAY/636360861812848734-Dog-Photos-17.jpg",
+          icon: "fas fa-dna",
+          id: 2
+        },
+        {
+          company: "company3",
+          position: "Computer Engineer",
+          location: "San Francisco, CA",
+          date_posted: "January 3, 2018",
+          field: "Computer Science",
+          logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3yYXqR0ep-l84DnUE_UStXgNLd8xngpWKvmeqKgCoR622Sep_",
+          icon: "fas fa-desktop",
+          id: 3
+        },
+        {
+          company: "company 4",
+          position: "mechanical engineer",
+          location: "Seattle, WA",
+          date_posted: "January 4, 2018",
+          field: "Mechanical Engineering",
+          logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ko5CaIY6PNcmA7L9W7DDXjh0OzC5olphW0Zh2564q_7Uecb9qg",
+          icon:"fas fa-cogs",
+          id: 4
+        },
+        {
+          company: "company5",
+          position: "electrical engineer",
+          location: "New York, NY",
+          date_posted: "January 5, 2018",
+          field: "Electrical Engineering",
+          logo:"https://www.hd-wallpapersdownload.com/script/bulk-upload/hd-cute-dog-images-pics.jpg",
+          icon: "fas fa-plug",
+          id: 5
+        },
+        {
+          company: "company6",
+          position: "chemical engineer",
+          location: "La Jolla, CA",
+          date_posted: "January 6, 2018",
+          field: "Chemical Engineering",
+          logo:"https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg",
+          icon:"fas fa-flask",
+          id: 6
+        }
+      ]
+    }
+  )
 }
 
-/**
- * Returns the message data to be sent in the `register` page
- *
- * @param {Object} req - request data from client
- *
- */
-function builgRegisterMessage(req) {
-  return Object.assign(buildDefaultMessage(req), {
-    current_page: 'register'
-  });
+function buildJobMessage(req){
+  return Object.assign(buildDefaultMessage(req, "jobs"), {
+    job: {
+      company: "company1",
+      position: "aerospace engineer",
+      location: "La Jolla, CA",
+      date_posted: "5/30/18",
+      field: "Aerospace Engineer",
+      logo: "https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg",
+      description: "Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.",
+      experience: "Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.",
+      email:"wip@eng100d.com",
+      id: 1
+    }
+  })
 }
 
 /**
@@ -143,12 +199,12 @@ router.get('/', function(req, res, next) {
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
-  res.render('login', buildLoginMessage(req));
+  res.render('login', buildDefaultMessage(req, "login"));
 });
 
 /* GET register page */
 router.get('/register', function(req, res, next) {
-  res.render('register', builgRegisterMessage(req));
+  res.render('register', buildDefaultMessage(req, "register"));
 });
 
 /* GET logout */
@@ -160,17 +216,48 @@ router.get('/logout', function(req, res) {
 
 /* GET stories page */
 router.get('/stories', function(req, res, next) {
-  res.render('stories', buildStoriesMessage(req));
+  buildStoriesMessage(req)
+    .then((message) => {
+      res.render('stories', message);
+    })
+    .catch((error) => {
+      // Unexpected internal server error
+      console.error(error);
+      next(createError(500));
+    })
+});
+
+/* GET jobs page */
+router.get('/jobs', function(req, res, next) {
+  res.render('jobs', buildJobsMessage(req));
+});
+
+router.get('/job', function(req, res, next) {
+  res.render('job', buildJobMessage(req));
 });
 
 /* GET about page */
 router.get('/about', function(req, res, next) {
-  res.render('about', buildStoriesMessage(req));
+  res.render('about', buildDefaultMessage(req, "about"));
 });
 
 /* GET story page */
 router.get('/story', function(req, res, next){
-  res.render('story', buildStoryMessage(req));
+  buildStoryMessage(req)
+    .then((message) => {
+      res.render('story', message)
+    })
+    .catch((error) => {
+      console.error(error);
+
+      if(error instanceof MessageError) {
+        // Error is how the page was retrieved
+        next(createError(404));
+      } else {
+        // Unexpected internal server error
+        next(createError(500));
+      }
+    })
 });
 
 /* POST login - authenticate user */

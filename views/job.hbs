@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4" style="min-height: 100%; padding: 30px">
+                <img src="{{job.logo}}" alt="job logo" style="max-width: 250px; max-height: 250px; margin: auto; text-align:center;">
+            </div>
+            <div class="col-md-8">
+                <h1 class="display-3">{{job.position}}</h1>
+                <p class="lead">{{job.company}} - posed on {{job.date_posted}}</p>
+                {{#if user}}
+                    <p>
+                        Please email your resume to: {{job.email}}.
+                    </p>
+                {{else}}
+                    <p><a class="btn btn-lg btn-success" href="/login" role="button">Apply today</a></p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4>Type</h4>
+          <p>{{job.field}}</p>
+
+          <h4>Job Description</h4>
+          <p>{{job.description}}</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Location</h4>
+          <p>{{job.location}}</p>
+
+          <h4>Required Experience</h4>
+          <p>{{job.experience}}</p>
+        </div>
+      </div>
+</div>
