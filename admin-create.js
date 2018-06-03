@@ -25,12 +25,20 @@ rl.question(rl.query, (output) => {
           console.log("confirm_password: ", confirm_password);
           rl.close();
 
-          request('http://localhost:3000/request-admin', {body: {}, method:"post"}, (error, response, body)=>{
+          request.post({
+            url: 'http://localhost:3000/register-admin',
+            json: true,
+            body: {
+              username: username,
+              password: password,
+              password_confirm: confirm_password
+            }
+          }, (error, response, body) => {
             if (!error && response.statusCode == 200) {
                 console.log(body) // Show the HTML for the Google homepage. 
               }
               else {
-                console.log("Error "+response.statusCode)
+                console.log("Error "+response.body)
               }
           })
           
