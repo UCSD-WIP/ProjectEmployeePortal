@@ -20,11 +20,15 @@ rl.question(rl.query, (output) => {
       rl.query = "Confirm_password : ";
       rl.question(rl.querym, (output) => {
           confirm_password = output;
-          console.log("\nthe username: ", username);
-          console.log("password: ", password);
-          console.log("confirm_password: ", confirm_password);
           rl.close();
 
+          if(username.length < 4 || password.length < 6 || password != confirm_password){
+            console.error("\n\nPlease make sure:\n");
+            console.error("username is at least 4 characters long");
+            console.error("password is at least 6 characters long");
+            console.error("ensure the password and confirm password match");
+            return;
+          }
           request.post({
             url: 'http://localhost:3000/register-admin',
             json: true,
@@ -35,7 +39,7 @@ rl.question(rl.query, (output) => {
             }
           }, (error, response, body) => {
             if (!error && response.statusCode == 200) {
-                console.log(body) // Show the HTML for the Google homepage. 
+                console.log("\n",body) // Show the HTML for the Google homepage. 
               }
               else {
                 console.log("Error "+response.body)
