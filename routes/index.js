@@ -260,6 +260,12 @@ router.get('/story', function(req, res, next){
     })
 });
 
+/* GET admin_postajob page */
+/* GET about page */
+router.get('/admin_postajob', function(req, res, next) {
+  res.render('admin_postajob', buildDefaultMessage(req, "admin_postajob"));
+});
+
 /* POST login - authenticate user */
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
