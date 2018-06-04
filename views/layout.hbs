@@ -15,10 +15,11 @@
   <body>
     {{#if_equals user.role "administrator"}}
       {{admin_navbar}}
+    {{else}}
+      {{>navbar}}
+      {{>alerts}}
+      {{{body}}}
     {{/if_equals}}
-    {{>navbar}}
-    {{>alerts}}
-    {{{body}}}
   </body>
 
   <!-- JavaScript imports -->
