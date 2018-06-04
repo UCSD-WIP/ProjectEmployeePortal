@@ -1,10 +1,10 @@
-<nav class="admin-navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/admin_about">Logo</a>
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="/">Logo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarNav">
+  {{!--<div class="collapse navbar-collapse" id="navbarNav">--}}
     {{!-- Content to the left side of the navbar --}}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
@@ -34,12 +34,18 @@
       </li>
       {{/if}}
     </ul>
-  </div>
 </nav>
 
-<div class="sidenav">
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
+<div class="bg-light sidenav navbar-light">
+    <ul class="navbar-nav ml-auto"
+        <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#clients">Clients</a>
+        </li>
+    </ul>
 </div>

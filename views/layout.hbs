@@ -14,12 +14,18 @@
 
   <body>
     {{#if_equals user.role_name "administrator"}}
-      {{admin_navbar}}
+      {{>admin_navbar}}
+      <div class="admin_body">
+        {{>alerts}}
+        {{{body}}}
+      </div>
+      
     {{else}}
       {{>navbar}}
-    {{/if_equals}}
       {{>alerts}}
       {{{body}}}
+    {{/if_equals}}
+      
   </body>
 
   <!-- JavaScript imports -->

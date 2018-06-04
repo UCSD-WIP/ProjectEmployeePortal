@@ -163,6 +163,12 @@ function buildJobMessage(req){
   })
 }
 
+function buildAdminHomeMessage(req){
+  return Object.assign(buildDefaultMessage(req), {
+    style:'stylesheets/style_sidenav.css'
+  })
+}
+
 /**
  * Returns the message data to be sent in the index page
  *
@@ -190,21 +196,19 @@ function buildIndexMessage(req) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  buildIndexMessage(req)
-    .then((message) => {
-      console.log(req.user);
-      if(req.user && req.user.role_name == "administrator"){
-        res.render('admin_home', message);
-      }
-      else{
+  if(req.user && req.user.role_name == "administrator"){
+    res.render('admin_home',buildAdminHomeMessage(req));
+  } else {
+    buildIndexMessage(req)
+      .then((message) => {
         res.render('index', message);
-      }
-    })
-    .catch((error) => {
-      // Unexpected internal server error
-      console.error(error);
-      next(createError(500));
-    })
+      })
+      .catch((error) => {
+        // Unexpected internal server error
+        console.error(error);
+        next(createError(500));
+      })
+  }
 });
 
 /* GET login page */
