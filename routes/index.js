@@ -264,6 +264,11 @@ router.get('/story', function(req, res, next){
     })
 });
 
+/* GET admin discover new page */
+router.get('/admin_discover_new', function(req, res, next) {
+  res.render('admin_discover_new', buildDefaultMessage(req, "about"));
+});
+
 /* POST login - authenticate user */
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
