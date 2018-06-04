@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "create-admin": "node admin-create.js"
+    "start": "npm run auto-create-admin & node ./bin/www",
+    "create-admin": "node admin-create.js",
+    "auto-create-admin": "node auto-admin-create.js"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
