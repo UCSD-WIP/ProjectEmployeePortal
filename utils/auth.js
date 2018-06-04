@@ -143,7 +143,7 @@ passport.serializeUser((user, done) => {
  *    @param {Object} user
  */
 passport.deserializeUser((id, done) => {
-  db.query("select * from User where id = ?", {
+  db.query("select * from User u, Role r where u.id = ? AND r.id = u.role_id", {
       replacements: [id],
       type: db.QueryTypes.SELECT
     })
@@ -151,12 +151,21 @@ passport.deserializeUser((id, done) => {
       user = queryResult[0]
 
       if (user) {
-        delete user.password
+        // Clean up unnecessary fields
+        delete user.password;
+        delete user.id;
+        delete user.role_id;
+
+        console.log(user);
         done(null, user);
       } else {
         // User not found
-        done(new Error("Internal server error"), null)
+        done(new Error("Internal server error"), null);
       }
+    })
+    .catch((err) => {
+      console.error(err);
+      return done(new Error("Internal server error"), null);
     })
 });
 
@@ -188,6 +197,23 @@ module.exports = {
 
   /** 
    * ensureUserLoggedIn() Middleware that checks if user is logged in
+   *
+   * @param {Object} req - request from the client
+   * @param {Object} res - response to the client
+   * @param {Callback} next - call to next middleware
+   */
+  ensureUserLoggedIn: function(req, res, next) {
+    // not logged in test
+    if (req.user) {
+      return next();
+    } else {
+      req.flash('error', "You must be logged in to continue");
+      return res.redirect('/login');
+    }
+  },
+
+  /** 
+   * ensureAdminLoggedIn() Middleware that checks if user is logged in
    *
    * @param {Object} req - request from the client
    * @param {Object} res - response to the client
