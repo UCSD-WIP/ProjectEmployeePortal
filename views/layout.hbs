@@ -13,13 +13,13 @@
   </head>
 
   <body>
-    {{#if_equals user.role "administrator"}}
+    {{#if_equals user.role_name "administrator"}}
       {{admin_navbar}}
     {{else}}
       {{>navbar}}
+    {{/if_equals}}
       {{>alerts}}
       {{{body}}}
-    {{/if_equals}}
   </body>
 
   <!-- JavaScript imports -->

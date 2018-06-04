@@ -192,7 +192,13 @@ function buildIndexMessage(req) {
 router.get('/', function(req, res, next) {
   buildIndexMessage(req)
     .then((message) => {
-      res.render('index', message);
+      console.log(req.user);
+      if(req.user && req.user.role_name == "administrator"){
+        res.render('admin_home', message);
+      }
+      else{
+        res.render('index', message);
+      }
     })
     .catch((error) => {
       // Unexpected internal server error
