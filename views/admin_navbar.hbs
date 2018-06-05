@@ -36,6 +36,20 @@
     </ul>
 </nav>
 
+{{#if_equals current_page "admin_about"}}
+<ul class="navbar-nav ml-auto"
+        <li class="nav-item">
+            <a class="nav-link" href="/admin_about">Edit</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#clients">Clients</a>
+        </li>
+    </ul>
+
+{{else}}
 <div class="bg-light sidenav navbar-light">
     <ul class="navbar-nav ml-auto"
         <li class="nav-item">
@@ -49,3 +63,4 @@
         </li>
     </ul>
 </div>
+{{/if_equals}}
