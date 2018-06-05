@@ -37,4 +37,16 @@
       {{/if}}
     {{/each}}
   </div>
+
 </div>
+<!-- Pagination -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item {{#if no_prev}}disabled{{/if}}">
+      <a class="page-link" href="/stories?p={{page_prev}}" tabindex="-1">&laquo;</a>
+    </li>
+    <li class="page-item {{#if no_next}}disabled{{/if}}">
+      <a class="page-link" href="/stories?p={{page_next}}">&raquo;</a>
+    </li>
+  </ul>
+</nav>

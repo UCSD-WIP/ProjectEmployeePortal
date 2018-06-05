@@ -218,9 +218,9 @@ module.exports = {
    * @param {Object} res - response to the client
    * @param {Callback} next - call to next middleware
    */
-  ensureUserLoggedIn: function(req, res, next) {
-    // not logged in test
-    if (req.user) {
+  ensureAdminLoggedIn: function(req, res, next) {
+    // not logged in as admin test
+    if (req.user && req.user.role_name == "administrator") {
       return next();
     } else {
       req.flash('error', "You must be logged in to continue");

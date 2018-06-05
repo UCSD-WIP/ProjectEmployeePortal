@@ -58,16 +58,24 @@ function buildStoryMessage(req) {
  *
  */
 function buildStoriesMessage(req) {
+  let page = req.query.p ? parseInt(req.query.p) : 0;
   let message = Object.assign(buildDefaultMessage(req, "stories"), {
     style: 'stylesheets/style_stories.css',
   });
 
-  return db.query('select * from Story order by timestamp desc limit 6')
-    .then((queryResults) => {
-      let stories = queryResults[0]
+  return db.query('select * from Story order by timestamp desc limit 7 offset ?', {
+      replacements: [page * 6],
+      type:db.QueryTypes.SELECT,
+    }).then((queryResults) => {
 
+      let stories = queryResults;
       if(stories && stories.length != 0) {
-        message["stories"] = stories
+        message["stories"] = stories.slice(0, 6);
+        message["page"] = page;
+        message["page_prev"] = page - 1;
+        message["page_next"] = page + 1;
+        message["no_prev"] = page <= 0;
+        message["no_next"] = page >= 0 && stories.length != 7;
         return message;
       }
     });
@@ -80,16 +88,24 @@ function buildStoriesMessage(req) {
  *
  */
 function buildJobsMessage(req) {
-  let message = Object.assign(buildDefaultMessage(req, "stories"), {
+  let page = req.query.p ? parseInt(req.query.p) : 0;
+  let message = Object.assign(buildDefaultMessage(req, "jobs"), {
     style: 'stylesheets/style_jobs.css',
   });
 
-  return db.query('select * from Job order by timestamp desc limit 6')
-    .then((queryResults) => {
-      let jobs = queryResults[0]
+  return db.query('select * from Job where archived = 0 order by timestamp desc limit 7 offset ?', {
+      replacements: [page * 6],
+      type:db.QueryTypes.SELECT,
+    }).then((queryResults) => {
+      let jobs = queryResults
 
       if(jobs && jobs.length != 0) {
-        message["jobs"] = jobs
+        message["jobs"] = jobs.slice(0, 6);
+        message["page"] = page;
+        message["page_prev"] = page - 1;
+        message["page_next"] = page + 1;
+        message["no_prev"] = page == 0;
+        message["no_next"] = jobs.length != 7;
         return message;
       }
     });
