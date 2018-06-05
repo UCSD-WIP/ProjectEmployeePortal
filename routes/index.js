@@ -359,6 +359,7 @@ router.post('/register-admin', (req, res) => {
   }
 });
 
+/* GET uuid-gen - generate a uuid, store it in list, send it back to user */
 router.get('/uuid-gen', (req, res) => {
   var uuidStr = uuid.GenerateUUID();
   uuid.addUUIDToList(uuidStr);
@@ -366,6 +367,7 @@ router.get('/uuid-gen', (req, res) => {
   res.redirect('/new-job');
 });
 
+/* GET new-job - visit new job page */
 router.get('/new-job', (req, res) => {
   res.render('new_job', buildDefaultMessage(req, "/new-job"));
 });
