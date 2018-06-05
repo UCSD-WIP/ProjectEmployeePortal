@@ -13,7 +13,14 @@
   </head>
 
   <body>
-    {{>navbar}}
+    {{#if_equals user.role_name "administrator"}}
+      {{>admin_navbar}}
+      
+    {{else}}
+      {{>navbar}}
+
+    {{/if_equals}}
+    
     {{>alerts}}
     {{{body}}}
   </body>
