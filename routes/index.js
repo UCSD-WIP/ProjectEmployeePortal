@@ -165,7 +165,7 @@ function buildJobMessage(req){
 
 function buildAdminHomeMessage(req){
   return Object.assign(buildDefaultMessage(req), {
-    style:'stylesheets/style_sidenav.css'
+    style:'stylesheets/style_story.css'
   })
 }
 
