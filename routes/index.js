@@ -168,7 +168,7 @@ function buildJobMessage(req){
 
 function buildAdminHomeMessage(req){
   return Object.assign(buildDefaultMessage(req), {
-    style:'stylesheets/style_story.css'
+    style:'stylesheets/style_admin_home.css'
   })
 }
 
@@ -199,9 +199,6 @@ function buildIndexMessage(req) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  if(req.user && req.user.role_name == "administrator"){
-    res.render('admin_home',buildAdminHomeMessage(req));
-  } else {
     buildIndexMessage(req)
       .then((message) => {
         res.render('index', message);
@@ -211,7 +208,10 @@ router.get('/', function(req, res, next) {
         console.error(error);
         next(createError(500));
       })
-  }
+});
+
+router.get('/admin_home', function(req, res, next){
+  res.render('admin_home', buildAdminHomeMessage(req));
 });
 
 /* GET login page */
