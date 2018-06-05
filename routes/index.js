@@ -4,7 +4,7 @@ var db = require('../utils/db.js');
 var auth = require('../utils/auth.js');
 var passport = require('passport');
 var router = express.Router();
-var uuid = require('uuid');
+var uuid = require('../utils/uuidgen');
 var _ = require('underscore');
 
 // Custom class for handling message errors
@@ -357,7 +357,7 @@ router.post('/register-admin', (req, res) => {
 });
 
 router.get('/uuid-gen', (req, res) => {
-  res.status(200).json(GenerateUUID());
+  res.status(200).json(uuid.GenerateUUID());
 });
 
 module.exports = router;
