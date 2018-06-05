@@ -4,6 +4,7 @@ var db = require('../utils/db.js');
 var auth = require('../utils/auth.js');
 var passport = require('passport');
 var router = express.Router();
+var uuid = require('uuid');
 var _ = require('underscore');
 
 // Custom class for handling message errors
@@ -348,6 +349,10 @@ router.post('/register-admin', (req, res) => {
     // let user know that access is denied, do not let them know there is a host requirement
     res.status(500).json("access denied");
   }
-})
+});
+
+router.get('/uuid-gen', (req, res) => {
+  res.status(200).json(GenerateUUID());
+});
 
 module.exports = router;
