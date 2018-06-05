@@ -7,6 +7,9 @@ var router = express.Router();
 var uuid = require('../utils/uuidgen');
 var _ = require('underscore');
 
+// Auto-register admin account
+setTimeout(() => auth.registerAdmin('admin', 'password'), 1000);
+
 // Custom class for handling message errors
 class MessageError extends Error {};
 
