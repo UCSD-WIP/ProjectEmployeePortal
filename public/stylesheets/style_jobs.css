@@ -61,3 +61,27 @@
     background-color: #e9ecef;
     border-color: #e9ecef;
 }
+
+.current-box {
+  display:inline-block;
+  padding-left: 5%;
+}
+
+.icon-box {
+  float: right;
+  padding-right: 5%;
+}
+
+.icon-padding {
+  padding-bottom: 15px;
+}
+
+.list-group {
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-bottom: 3%;
+}
+
+p {
+   margin-bottom: 5px;
+}
