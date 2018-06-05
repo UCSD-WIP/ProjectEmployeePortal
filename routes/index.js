@@ -33,7 +33,7 @@ function buildStoryMessage(req) {
   if(!req.query.id) {
     return Promise.reject(new MessageError("Id does not exist"));
   }
-  
+
   let message = Object.assign(buildDefaultMessage(req, "stories"),{
     style:'stylesheets/style_story.css',
   });
@@ -81,7 +81,7 @@ function buildStoriesMessage(req) {
  */
 //TODO: Link this to backend work
 function buildJobsMessage(req) {
-  return Object.assign(buildDefaultMessage(req, "jobs"), 
+  return Object.assign(buildDefaultMessage(req, "jobs"),
     { style: 'stylesheets/style_jobs.css',
       job: [
         {
@@ -166,6 +166,12 @@ function buildJobMessage(req){
   })
 }
 
+function buildAdminHomeMessage(req){
+  return Object.assign(buildDefaultMessage(req), {
+    style:'stylesheets/style_admin_home.css'
+  })
+}
+
 /**
  * Returns the message data to be sent in the index page
  *
@@ -193,15 +199,19 @@ function buildIndexMessage(req) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  buildIndexMessage(req)
-    .then((message) => {
-      res.render('index', message);
-    })
-    .catch((error) => {
-      // Unexpected internal server error
-      console.error(error);
-      next(createError(500));
-    })
+    buildIndexMessage(req)
+      .then((message) => {
+        res.render('index', message);
+      })
+      .catch((error) => {
+        // Unexpected internal server error
+        console.error(error);
+        next(createError(500));
+      })
+});
+
+router.get('/admin_home', function(req, res, next){
+  res.render('admin_home', buildAdminHomeMessage(req));
 });
 
 /* GET login page */
@@ -272,6 +282,24 @@ router.get('/admin_discover_new', function(req, res, next) {
   res.render('admin_discover_new', buildDefaultMessage(req, "about"));
 });
 
+/* GET admin current stories page */
+router.get('/admin_current_stories', function(req, res, next) {
+  buildStoriesMessage(req)
+    .then((message) => {
+      res.render('admin_current_stories', message);
+    })
+    .catch((error) => {
+      // Unexpected internal server error
+      console.error(error);
+      next(createError(500));
+    })
+});
+
+/* GET admin current jobs page */
+router.get('/admin_current_jobs', function(req, res, next) {
+  res.render('admin_current_jobs', buildJobsMessage(req));
+});
+
 /* POST login - authenticate user */
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
@@ -318,7 +346,7 @@ router.post('/register', function(req, res, next) {
 /* POST register-admin - try to register a new admin */
 router.post('/register-admin', (req, res) => {
   // check the request is originating from localhost...
-  
+
   console.log(req.connection.remoteAddress);
   let addr = _.last(req.connection.remoteAddress.split(':'));
   if (req.headers.host.split(':')[0] === 'localhost' &&
