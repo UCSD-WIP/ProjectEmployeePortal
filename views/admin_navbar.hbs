@@ -1,36 +1,25 @@
-<nav class="navbar navbar-expand navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">Logo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  {{!--<div class="collapse navbar-collapse" id="navbarNav">--}}
+  <div class="collapse navbar-collapse" id="navbarNav">
     {{!-- Content to the left side of the navbar --}}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link {{#if_equals current_page "admin_about"}}active{{/if_equals}}" href="/admin_about">Admin About</a>
+        <a class="nav-link {{#if_equals current_page "admin_about"}}active{{/if_equals}}" href="/#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        About</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">Edit</a>
           <a class="dropdown-item" href="/about">Preview</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{#if_equals current_page "admin_jobs"}}active{{/if_equals}}" href="/admin_jobs">Jobs</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Edit</a>
-          <a class="dropdown-item" href="#">Current</a>
-          <a class="dropdown-item" href="#">Archive</a>
-          <a class="dropdown-item" href="/jobs">Preview</a>
-        </div>
+        <a class="nav-link {{#if_equals current_page "admin_jobs"}}active{{/if_equals}}" href="/#">Jobs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{#if_equals current_page "admin_stories"}}active{{/if_equals}}" href="/admin_stories">Stories</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Edit</a>
-          <a class="dropdown-item" href="#">Current</a>
-          <a class="dropdown-item" href="#">Archive</a>
-          <a class="dropdown-item" href="/stories">Preview</a>
-        </div>
+        <a class="nav-link {{#if_equals current_page "admin_stories"}}active{{/if_equals}}" href="/#">Stories</a>
       </li>
     </ul>
 
@@ -50,4 +39,5 @@
       </li>
       {{/if}}
     </ul>
+  </div>
 </nav>
