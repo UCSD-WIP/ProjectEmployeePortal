@@ -360,7 +360,9 @@ router.post('/register-admin', (req, res) => {
 });
 
 router.get('/uuid-gen', (req, res) => {
-  req.flash('success', uuid.GenerateUUID());
+  var uuidStr = uuid.GenerateUUID();
+  uuid.addUUIDToList(uuidStr);
+  req.flash('success', uuidStr);
   res.redirect('/new-job');
 });
 
