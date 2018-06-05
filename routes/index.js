@@ -226,6 +226,7 @@ router.get('/jobs', function(req, res, next) {
     })
 });
 
+/* GET job page */
 router.get('/job', function(req, res, next) {
   buildJobMessage(req)
     .then((message) => {
@@ -291,14 +292,27 @@ router.get('/admin_current_jobs', function(req, res, next) {
 });
 
 /* POST login - authenticate user */
-// TODO: change home based on admin
-router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  successFlash: true,
-  failureFlash: true,
-  session: true
-}));
+router.post('/login', (req, res, next) => {
+  db.query("select * from User u, Role r where username = ? and u.role_id = r.id", {
+    replacements: [req.body.username],
+    type: db.QueryTypes.SELECT
+  })
+  .then((queryResult) => {
+    let user = queryResult[0]
+    let successRedirect = '/'
+
+    if(user && user.role_name == "administrator") {
+      successRedirect = '/admin_home';      
+    }
+    passport.authenticate('local', {
+      successRedirect: successRedirect,
+      failureRedirect: '/login',
+      successFlash: true,
+      failureFlash: true,
+      session: true
+    })(req, res, next);
+  });
+});
 
 /* POST register - try to register a new user */
 router.post('/register', function(req, res, next) {
