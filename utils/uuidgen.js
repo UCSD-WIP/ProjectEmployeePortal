@@ -2,7 +2,7 @@ const uuid = require('uuid/v4');
 const _ = require('underscore');
 
 // store uuids here
-uuidList = [];
+uuidList = new Set([]);
 
 /** function that returns a UUID string based on timestamp */
 function GenerateUUID() {
@@ -13,14 +13,14 @@ function GenerateUUID() {
  * @param {string} uuidString uuid string to be stored in the list
 */
 function addUUIDToList(uuidString){
-    uuidList.push(uuidString);
+    uuidList.add(uuidString);
 }
 
 /** function used to remove uuidString to the list
  * @param {string} uuidString uuid string to be removed from the list
 */
 function removeUUIDFromList(uuidString){
-    uuidList = _.without(uuidList, [uuidString]);
+    uuidList.delete(uuidString);
 }
 
 /** function that checks if uuid is in list or not
@@ -28,7 +28,7 @@ function removeUUIDFromList(uuidString){
  * @returns {boolean} true if uuid is in list, false otherwise
 */
 function containsInUUIDList(uuidString){
-    return _.contains(uuidList, uuidString);
+    return uuidList.has(uuidString);
 }
 
 module.exports = {
