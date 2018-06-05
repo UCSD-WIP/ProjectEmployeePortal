@@ -1,8 +1,8 @@
-const uuidv1 = require('uuid/v1');
+const uuid = require('uuid/v4');
 
 // function that returns a UUID string based on timestamp
 function GenerateUUID() {
-    return uuidv1();
+    return uuid();
 }
 module.exports = {
     GenerateUUID

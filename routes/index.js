@@ -357,7 +357,12 @@ router.post('/register-admin', (req, res) => {
 });
 
 router.get('/uuid-gen', (req, res) => {
-  res.status(200).json(uuid.GenerateUUID());
+  req.flash('success', uuid.GenerateUUID());
+  res.redirect('/new-job');
+});
+
+router.get('/new-job', (req, res) => {
+  res.render('new_job', buildDefaultMessage(req, "/new-job"));
 });
 
 module.exports = router;
