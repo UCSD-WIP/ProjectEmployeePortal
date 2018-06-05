@@ -156,7 +156,6 @@ passport.deserializeUser((id, done) => {
         delete user.id;
         delete user.role_id;
 
-        console.log(user);
         done(null, user);
       } else {
         // User not found
