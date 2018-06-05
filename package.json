@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run auto-create-admin & node ./bin/www",
+    "start": "node ./bin/www & npm run auto-create-admin",
     "create-admin": "node admin-create.js",
     "auto-create-admin": "node auto-admin-create.js"
   },
