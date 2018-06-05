@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-8">
                 <h1 class="display-3">{{job.position}}</h1>
-                <p class="lead">{{job.company}} - posed on {{job.date_posted}}</p>
+                <p class="lead">{{job.company_name}} - posed on {{job.timestamp}}</p>
                 {{#if user}}
                     <p>
                         Please email your resume to: {{job.email}}.
@@ -21,7 +21,7 @@
       <div class="row marketing">
         <div class="col-lg-6">
           <h4>Type</h4>
-          <p>{{job.field}}</p>
+          <p>{{job.job_field}}</p>
 
           <h4>Job Description</h4>
           <p>{{job.description}}</p>

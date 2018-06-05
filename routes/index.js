@@ -62,7 +62,7 @@ function buildStoriesMessage(req) {
     style: 'stylesheets/style_stories.css',
   });
 
-  return db.query('select * from Story limit 6')
+  return db.query('select * from Story order by timestamp desc limit 6')
     .then((queryResults) => {
       let stories = queryResults[0]
 
@@ -79,91 +79,44 @@ function buildStoriesMessage(req) {
  * @param {Object} req - request data from client
  *
  */
-//TODO: Link this to backend work
 function buildJobsMessage(req) {
-  return Object.assign(buildDefaultMessage(req, "jobs"), 
-    { style: 'stylesheets/style_jobs.css',
-      job: [
-        {
-          company: "company1",
-          position: "aerospace engineer",
-          location: "Washington D.C",
-          date_posted: "January 1, 2018",
-          field: "Aerospace Engineering",
-          logo:"https://i.ytimg.com/vi/opKg3fyqWt4/hqdefault.jpg",
-          icon: "fas fa-rocket",
-          id: 1
-        },
-        {
-          company: "company2",
-          position: "bioengineering engineer",
-          location: "La Jolla, CA",
-          date_posted: "January 2, 2018",
-          field: "Bioengineering",
-          logo:"https://www.gannett-cdn.com/-mm-/e0b7d12476623b253869250f04db61c5ffb8135c/c=0-471-5753-3721&r=x329&c=580x326/local/-/media/2017/07/19/USATODAY/USATODAY/636360861812848734-Dog-Photos-17.jpg",
-          icon: "fas fa-dna",
-          id: 2
-        },
-        {
-          company: "company3",
-          position: "Computer Engineer",
-          location: "San Francisco, CA",
-          date_posted: "January 3, 2018",
-          field: "Computer Science",
-          logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3yYXqR0ep-l84DnUE_UStXgNLd8xngpWKvmeqKgCoR622Sep_",
-          icon: "fas fa-desktop",
-          id: 3
-        },
-        {
-          company: "company 4",
-          position: "mechanical engineer",
-          location: "Seattle, WA",
-          date_posted: "January 4, 2018",
-          field: "Mechanical Engineering",
-          logo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ko5CaIY6PNcmA7L9W7DDXjh0OzC5olphW0Zh2564q_7Uecb9qg",
-          icon:"fas fa-cogs",
-          id: 4
-        },
-        {
-          company: "company5",
-          position: "electrical engineer",
-          location: "New York, NY",
-          date_posted: "January 5, 2018",
-          field: "Electrical Engineering",
-          logo:"https://www.hd-wallpapersdownload.com/script/bulk-upload/hd-cute-dog-images-pics.jpg",
-          icon: "fas fa-plug",
-          id: 5
-        },
-        {
-          company: "company6",
-          position: "chemical engineer",
-          location: "La Jolla, CA",
-          date_posted: "January 6, 2018",
-          field: "Chemical Engineering",
-          logo:"https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg",
-          icon:"fas fa-flask",
-          id: 6
-        }
-      ]
-    }
-  )
+  let message = Object.assign(buildDefaultMessage(req, "stories"), {
+    style: 'stylesheets/style_jobs.css',
+  });
+
+  return db.query('select * from Job order by timestamp desc limit 6')
+    .then((queryResults) => {
+      let jobs = queryResults[0]
+
+      if(jobs && jobs.length != 0) {
+        message["jobs"] = jobs
+        return message;
+      }
+    });
 }
 
 function buildJobMessage(req){
-  return Object.assign(buildDefaultMessage(req, "jobs"), {
-    job: {
-      company: "company1",
-      position: "aerospace engineer",
-      location: "La Jolla, CA",
-      date_posted: "5/30/18",
-      field: "Aerospace Engineer",
-      logo: "https://dogzone-tcwebsites.netdna-ssl.com/wp-content/uploads/2014/01/4_tips_cute_dog_names.jpg",
-      description: "Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.",
-      experience: "Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.",
-      email:"wip@eng100d.com",
-      id: 1
+  if(!req.query.id) {
+    return Promise.reject(new MessageError("Id does not exist"));
+  }
+  
+  let message = Object.assign(buildDefaultMessage(req, "stories"),{
+    style:'stylesheets/style_story.css',
+  });
+
+  return db.query('select * from Job where id = ?', {
+    replacements: [req.query.id],
+    type:db.QueryTypes.SELECT
+  }).then((queryResults) => {
+    let job = queryResults[0]
+
+    if(job && job.length != 0) {
+      message["job"] = job
+      return message;
+    } else {
+      return Promise.reject(new MessageError("Id does not exist"));
     }
-  })
+  });
 }
 
 /**
@@ -177,7 +130,7 @@ function buildIndexMessage(req) {
     style: 'stylesheets/style_index.css',
   });
 
-  return db.query('select * from Story where featured = 1')
+  return db.query('select * from Story where featured = 1 order by timestamp desc')
     .then((queryResults) => {
       let stories = queryResults[0]
 
@@ -236,12 +189,33 @@ router.get('/stories', function(req, res, next) {
 
 /* GET jobs page */
 router.get('/jobs', function(req, res, next) {
-  res.render('jobs', buildJobsMessage(req));
+  buildJobsMessage(req)
+    .then((message) => {
+      res.render('jobs', message);
+    })
+    .catch((error) => {
+      // Unexpected internal server error
+      console.error(error);
+      next(createError(500));
+    })
 });
 
 router.get('/job', function(req, res, next) {
-  res.render('job', buildJobMessage(req));
-});
+  buildJobMessage(req)
+    .then((message) => {
+      res.render('job', message)
+    })
+    .catch((error) => {
+      console.error(error);
+
+      if(error instanceof MessageError) {
+        // Error is how the page was retrieved
+        next(createError(404));
+      } else {
+        // Unexpected internal server error
+        next(createError(500));
+      }
+    })});
 
 /* GET about page */
 router.get('/about', function(req, res, next) {
@@ -264,7 +238,7 @@ router.get('/story', function(req, res, next){
         // Unexpected internal server error
         next(createError(500));
       }
-    })
+    });
 });
 
 /* GET admin discover new page */
@@ -273,6 +247,7 @@ router.get('/admin_discover_new', function(req, res, next) {
 });
 
 /* POST login - authenticate user */
+// TODO: change home based on admin
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',

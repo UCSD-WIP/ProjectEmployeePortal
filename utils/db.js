@@ -31,9 +31,13 @@ db.authenticate()
         "position string not null," +
         "job_field string not null," +
         "location string not null," +
-        "timestamp datetime default current_timestamp," +
-        "content string not null," +
-        "email string not null);"),
+        "logo string," +
+        "icon string," +        
+        "description string not null," +
+        "experience string not null," +
+        "email string not null," +
+        "archived integer not null," + 
+        "timestamp datetime default current_timestamp);"),
       db.query("create table if not exists Story (" +
         "id integer primary key autoincrement," +
         "image string," +
@@ -56,19 +60,33 @@ db.authenticate()
   })
   .then((queryResult) => {
     return Promise.all([
-      db.query('insert into Story (image, title, description, content, featured) values (' +
-               '"' + static.corgi_on_floor + '", ' +
+      db.query('insert into Story (image, title, description, content, featured) values ' +
+               '("' + static.corgi_on_floor + '", ' +
                '"Cute Puppy Corgi on Floor!", ' +
                '"Wow this puppy is so cute!", ' +
-               '"Lorem ipsum dolor sit amet, noluisse instructior ea qui, ea error possit per. Amet oratio iracundia ne eam, ad vim tollit meliore patrioque. Enim timeam pro ex, te vis tempor abhorreant. Pro id legere verterem delicata, eu eros decore meliore mel. Quem conceptam ut nam. Quod elit tacimates quo an, natum possim ceteros pri ex, in nam commodo nominavi placerat.", ' +
-               '1);' ),
-      db.query('insert into Story (image, title, description, content, featured) values (' +
-               '"' + static.corgi_on_floor + '", ' +
-               '"Cute Puppy Corgi on Floor #2!", ' +
+               '"' + static.lorem_ipsum + '", ' +
+               '1), ' +
+               '("' + static.smiling_puppy + '", ' +
+               '"Cute Happy Puppy on Floor!", ' +
                '"Wow this puppy is also so cute!", ' +
-               '"Lorem ipsum dolor sit amet, noluisse instructior ea qui, ea error possit per. Amet oratio iracundia ne eam, ad vim tollit meliore patrioque. Enim timeam pro ex, te vis tempor abhorreant. Pro id legere verterem delicata, eu eros decore meliore mel. Quem conceptam ut nam. Quod elit tacimates quo an, natum possim ceteros pri ex, in nam commodo nominavi placerat.", ' +
-               '1);' ),
-
+               '"' + static.lorem_ipsum + '", ' +
+               '1), ' +
+               '("' + static.corgi_on_floor + '", ' +
+               '"Cute Puppy Corgi on Floor #2!", ' +
+               '"Wow this puppy is so cute but not featured!", ' +
+               '"' + static.lorem_ipsum + '", ' +
+               '0)'),
+      db.query('insert into Job (company_name, position, job_field, location, logo, icon, description, experience, email, archived) values ' +
+               '("company1", ' +
+               '"Aerospace Engineer", ' +
+               '"Aerospace Engineering", ' +
+               '"Washington D.C", ' +
+               '"' + static.brown_puppy + '", ' +
+               '"fas fa-rocket", ' +
+               '"' + static.lorem_ipsum + '", ' +
+               '"Bachelor\'s in Computer Science", ' +
+               '"wip@eng100d.com", ' +
+               '0)' ),
     ])
   });
 
