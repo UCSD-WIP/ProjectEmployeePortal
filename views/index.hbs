@@ -6,7 +6,7 @@
   </ol>
   <div class="carousel-inner" role="listbox">
     {{#each stories}}
-    <div style="background: url({{this.image}}) center center no-repeat; background-size: cover;" class="carousel-item {{#if_equals @index 0}}active{{/if_equals}}">
+    <div style='background: url({{this.image}}) center center no-repeat; background-size: cover;' class="carousel-item {{#if_equals @index 0}}active{{/if_equals}}">
       <div class="carousel-caption d-none d-block">
         <a href="/story?id={{this.id}}">
           <div class="carousel-caption-inner">
