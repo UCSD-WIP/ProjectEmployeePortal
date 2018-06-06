@@ -19,7 +19,7 @@ class MessageError extends Error {};
  */
 function buildDefaultMessage(req, current_page) {
   let message = {
-    title: 'Title',
+    title: 'Engineer Your Future',
     current_page: current_page,
     user: req.user,
     error: req.flash('error'),
@@ -312,7 +312,7 @@ router.post('/login', (req, res, next) => {
     if(user && user.role_name == "administrator") {
       successRedirect = '/admin_home';      
     }
-    
+
     passport.authenticate('local', {
       successRedirect: successRedirect,
       failureRedirect: '/login',
