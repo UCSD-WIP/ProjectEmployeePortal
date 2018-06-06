@@ -301,6 +301,12 @@ router.get('/admin_current_jobs', function(req, res, next) {
     })
 });
 
+/* GET admin_postajob page */
+/* GET about page */
+router.get('/admin_postajob', function(req, res, next) {
+  res.render('admin_postajob', buildDefaultMessage(req, "admin_postajob"));
+});
+
 /* POST login - authenticate user */
 router.post('/login', (req, res, next) => {
   db.query("select * from User u, Role r where username = ? and u.role_id = r.id", {
