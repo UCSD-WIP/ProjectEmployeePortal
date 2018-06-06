@@ -172,6 +172,12 @@ function buildAdminHomeMessage(req){
   })
 }
 
+function buildCreateJobMessage(req){
+  return Object.assign(buildDefaultMessage(req), {
+    style:'stylesheets/style_create_job.css'
+  })
+}
+
 /**
  * Returns the message data to be sent in the index page
  *
@@ -275,6 +281,11 @@ router.get('/story', function(req, res, next){
         next(createError(500));
       }
     })
+});
+
+/* GET new job page */
+router.get('/create_job', function(req, res, next) {
+  res.render('create_job', buildCreateJobMessage(req, "jobs"));
 });
 
 /* GET admin discover new page */
