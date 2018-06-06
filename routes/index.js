@@ -5,6 +5,7 @@ var auth = require('../utils/auth.js');
 var passport = require('passport');
 var router = express.Router();
 var uuid = require('../utils/uuidgen');
+var os = require('os');
 var _ = require('underscore');
 
 // Auto-register admin account
@@ -363,7 +364,7 @@ router.post('/register-admin', (req, res) => {
 router.get('/uuid-gen', (req, res) => {
   var uuidStr = uuid.GenerateUUID();
   uuid.addUUIDToList(uuidStr);
-  req.flash('success', uuidStr);
+  req.flash('success', 'localhost:3000/create_job/id?=' + uuidStr);
   res.redirect('/new-job');
 });
 
