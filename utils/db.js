@@ -133,7 +133,7 @@ db.authenticate()
                '0), ' +
                '("company3", ' +
                '"Software Engineer", ' +
-               '"Software Engineering/Computer Science", ' +
+               '"Software Engineering", ' +
                '"San Francisco, CA", ' +
                '"' + static.husky_puppy + '", ' +
                '"fas fa-desktop", ' +
@@ -163,7 +163,7 @@ db.authenticate()
                '0), ' +
                '("company3", ' +
                '"Software Engineer #2", ' +
-               '"Software Engineering/Computer Science", ' +
+               '"Software Engineering", ' +
                '"San Francisco, CA", ' +
                '"' + static.husky_puppy + '", ' +
                '"fas fa-desktop", ' +
@@ -195,7 +195,7 @@ db.authenticate()
                '0), ' +
                '("company3", ' +
                '"Software Engineer #3", ' +
-               '"Software Engineering/Computer Science", ' +
+               '"Software Engineering", ' +
                '"San Francisco, CA", ' +
                '"' + static.husky_puppy + '", ' +
                '"fas fa-desktop", ' +
@@ -227,7 +227,7 @@ db.authenticate()
                '1), ' +
                '("company3", ' +
                '"Software Engineer - Archived", ' +
-               '"Software Engineering/Computer Science", ' +
+               '"Software Engineering", ' +
                '"San Francisco, CA", ' +
                '"' + static.husky_puppy + '", ' +
                '"fas fa-desktop", ' +

@@ -8,19 +8,52 @@
     <!-- CSS imports -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     {{#if style}}
-      <link rel="stylesheet" href="{{style}}">
+    <link rel="stylesheet" href="{{style}}">
     {{/if}}
+    <style>
+      @font-face {
+        font-family: "Lucida Grande";
+        src: url(/resources/LucidaGrande.ttf) format("truetype");
+      }
+
+      * {
+        font-family: "Lucida Grande", "Open Sans";
+      }
+
+      .bg-light {
+        background-color: #afe8ea!important;
+        border-color: #d8eeef!important;
+      }
+
+      .bg-body {
+        background-color: #d8eeef!important;
+        border-color: #d8eeef!important;
+      }
+
+      .bg-dark {
+        background-color: #08aab1!important;
+        border-color: #08aab1!important;
+      }
+
+      .alert {
+        max-width: 400px;
+        margin: auto;
+        margin-top: 15px;
+      }
+
+      .alert p {
+        margin: 1rem 0;
+      }
+    </style>
   </head>
 
-  <body>
+  <body class="bg-body">
     {{#if_equals user.role_name "administrator"}}
       {{>admin_navbar}}
-      
     {{else}}
       {{>navbar}}
-
     {{/if_equals}}
-    
+
     {{>alerts}}
     {{{body}}}
   </body>

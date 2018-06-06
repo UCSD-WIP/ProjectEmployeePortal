@@ -2,33 +2,46 @@
   <h2 class="story-title"> Job Posting <h2>
     <div class="job-card-deck">
       {{#each jobs}}
+
+      {{#if_equals (math @index "%" 3) 0}}
+      <div class="row">
+      {{/if_equals}}
+
+
       <!-- Card Narrower -->
-      <div class="job-card card-cascade narrower">
-        <!-- Card image -->
-        <div class="view-overlay">
-          <img class="card-img-top" src={{this.logo}} alt="{{this.company_name}}">
-          <a>
-            <div class="mask rgba-white-slight"></div>
-          </a>
-        </div>
+      <div class="col-md-4 col">
+        <div class="job-card card-cascade bg-dark">
+          <!-- Card image -->
+          <div class="view-overlay">
+            <img class="card-img-top" src={{this.logo}} alt="{{this.company_name}}">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
 
-        <!-- Card content -->
-        <div class="card-body">
+          <!-- Card content -->
+          <div class="card-body">
 
-          <!-- Label -->
-          <h5 class="pink-text pb-2 pt-1"> <i class="{{this.icon}}"></i>   {{this.job_field}}</h5>
-          <!-- Title -->
-          <h4 class="card-title">{{this.company_name}}</h4>
-          <!-- Text -->
-          <p class="card-text"> <strong>Position: </strong>{{this.position}}</p>
-          <p class="card-text"> <strong>Location: </strong>{{this.location}}</p>
-          <p class="card-text"> <strong>Date Posted: </strong>{{this.timestamp}}</p>
+            <!-- Label -->
+            <h5 class="pink-text pb-2 pt-1"> <i class="{{this.icon}}"></i>   {{this.job_field}}</h5>
+            <!-- Title -->
+            <h4 class="card-title">{{this.company_name}}</h4>
+            <!-- Text -->
+            <p class="card-text"> <strong>Position: </strong>{{this.position}}</p>
+            <p class="card-text"> <strong>Location: </strong>{{this.location}}</p>
+            <p class="card-text"> <strong>Date Posted: </strong>{{this.timestamp}}</p>
 
-          <!-- Button -->
-          <a class="btn btn-primary" onclick="location.href = '/job?id={{this.id}}';">Apply</a>
+            <!-- Button -->
+            <a class="btn bg-light" onclick="location.href = '/job?id={{this.id}}';">Apply</a>
 
+          </div>
         </div>
       </div>
+
+      {{#if_equals (math @index "%" 3) 2}}
+      </div>
+      {{/if_equals}}
+
       {{/each}}
 
     </div>

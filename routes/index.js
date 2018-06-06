@@ -18,7 +18,7 @@ class MessageError extends Error {};
  * @param {Object} req - request data from client
  */
 function buildDefaultMessage(req, current_page) {
-  return {
+  let message = {
     title: 'Title',
     current_page: current_page,
     user: req.user,
@@ -27,6 +27,8 @@ function buildDefaultMessage(req, current_page) {
     info: req.flash('info'),
     success: req.flash('success'),
   }
+  
+  return message;
 }
 
 function buildStoryMessage(req) {
@@ -310,10 +312,10 @@ router.post('/login', (req, res, next) => {
     if(user && user.role_name == "administrator") {
       successRedirect = '/admin_home';      
     }
+    
     passport.authenticate('local', {
       successRedirect: successRedirect,
       failureRedirect: '/login',
-      successFlash: true,
       failureFlash: true,
       session: true
     })(req, res, next);

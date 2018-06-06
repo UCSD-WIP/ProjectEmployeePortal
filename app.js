@@ -31,6 +31,18 @@ hbs.registerPartial("pagination", fs.readFileSync("views/pagination.hbs", 'utf8'
 hbs.registerHelper('if_equals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
+hbs.registerHelper("math", function(lvalue, operator, rvalue, options) {
+    lvalue = parseFloat(lvalue);
+    rvalue = parseFloat(rvalue);
+        
+    return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+});
 
 /* Express Configuration */
 app.use(logger('dev'));

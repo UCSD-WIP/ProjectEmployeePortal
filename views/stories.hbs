@@ -2,39 +2,49 @@
   <h2 class="story-title"> Testimonials and Resources <h2>
   <div class="story-card-deck">
     {{#each stories}}
-      {{#if image}}
-        <div class="content">
-          <div class="story-card">
-           <a href="/story?id={{id}}">
-            <div class="content-overlay"></div>
 
+      {{#if_equals (math @index "%" 3) 0}}
+      <div class="row">
+      {{/if_equals}}
+
+      {{#if image}}
+        <div class="content col-md-4">
+          <div class="story-card bg-dark">
+            <div class="content-overlay"></div>
+            <div class="card-img-container ">
               <img class="card-img-top" src={{image}}>
-              <!-- Title -->
-              <h4 class="story-title">{{title}}</h4>
-              <!-- Text -->
-              <p class="story-text">{{author}}</p>
+            </div>
+            <!-- Title -->
+            <h4 class="story-title">{{title}}</h4>
+            <!-- Text -->
+            <p class="story-text">{{author}}</p>
+            <a href="/story?id={{id}}">
               <div class="content-details fadeIn-top">
                 <h3>{{description}}</h3>
               </div>
-          </a>
+            </a>
           </div>
         </div>
       {{else}}
-        <div class="content">
-          <div class="story-card-no-img">
-          <a href="/story?id={{id}}">
+        <div class="content col-md-4">
+          <div class="story-card-no-img bg-dark">
             <div class="content-overlay"></div>
               <!-- Title -->
               <h3 class="story-title-no-img">{{title}}</h3>
               <!-- Text -->
               <h5 class="story-text-no-img">{{author}}</h5>
-              <div class="content-details fadeIn-top">
-                <h3>{{description}}</h3>
-              </div>
-          </a>
+              <a href="/story?id={{id}}">
+                <div class="content-details fadeIn-top">
+                  <h3>{{description}}</h3>
+                </div>
+              </a>
           </div>
         </div>
       {{/if}}
+
+      {{#if_equals (math @index "%" 3) 2}}
+      </div>
+      {{/if_equals}}
     {{/each}}
   </div>
 

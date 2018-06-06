@@ -1,17 +1,10 @@
 .story-card-deck {
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding-bottom: 10px;
-  margin: auto;
-  padding-left: 5%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .story-card {
-  background-color: transparent;
   border-radius: 30px;
-  margin: auto;
-  max-width: 75%;
   border-style: solid;
   border-color: #e9ecef;
 }
@@ -27,7 +20,6 @@
   height: 20rem;
   border-style: solid;
   border-radius: 30px;
-  border-color: #e9ecef;
 }
 
 .story-title {
@@ -52,15 +44,17 @@
   align-items: center;
 }
 
+.card-img-container {
+  min-height: 220px;
+}
+
 .card-img-top {
   border-radius: 30px 30px 0px 0px;
-
 }
 
 .content {
   position: relative;
-
-  margin: auto;
+  padding: 50px 25px;
   overflow: hidden;
 }
 
@@ -82,7 +76,7 @@
   opacity: 1;
 }
 
-.content-image{
+.content-image {
   width: 100%;
 }
 
