@@ -4,6 +4,8 @@ var db = require('../utils/db.js');
 var auth = require('../utils/auth.js');
 var passport = require('passport');
 var router = express.Router();
+var uuid = require('../utils/uuidgen');
+var os = require('os');
 var _ = require('underscore');
 
 // Auto-register admin account
@@ -397,6 +399,19 @@ router.post('/register-admin', (req, res) => {
     // let user know that access is denied, do not let them know there is a host requirement
     res.status(500).json("access denied");
   }
-})
+});
+
+/* GET uuid-gen - generate a uuid, store it in list, send it back to user */
+router.get('/uuid-gen', (req, res) => {
+  var uuidStr = uuid.GenerateUUID();
+  uuid.addUUIDToList(uuidStr);
+  req.flash('success', 'localhost:3000/create_job/id?=' + uuidStr);
+  res.redirect('/new-job');
+});
+
+/* GET new-job - visit new job page */
+router.get('/new-job', (req, res) => {
+  res.render('new_job', buildDefaultMessage(req, "/new-job"));
+});
 
 module.exports = router;
