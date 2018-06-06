@@ -57,23 +57,24 @@ function buildStoryMessage(req) {
  * @param {Object} req - request data from client
  *
  */
-function buildStoriesMessage(req) {
+function buildStoriesMessage(req, limit, url) {
   let page = req.query.p ? parseInt(req.query.p) : 0;
   let message = Object.assign(buildDefaultMessage(req, "stories"), {
     style: 'stylesheets/style_stories.css',
   });
 
-  return db.query('select * from Story order by timestamp desc limit 7 offset ?', {
-      replacements: [page * 6],
+  return db.query('select * from Story order by timestamp desc limit ? offset ?', {
+      replacements: [limit + 1, page * limit],
       type:db.QueryTypes.SELECT,
     }).then((queryResults) => {
 
       let stories = queryResults;
       if(stories && stories.length != 0) {
-        message["stories"] = stories.slice(0, 6);
+        message["stories"] = stories.slice(0, limit);
+        message["url"] = url;
         message["page"] = page;
         message["page_prev"] = page > 0 ? page - 1 : null;
-        message["page_next"] = stories.length == 7 ? page + 1 : null;
+        message["page_next"] = stories.length == (limit + 1) ? page + 1 : null;
         return message;
       }
     });
@@ -85,23 +86,24 @@ function buildStoriesMessage(req) {
  * @param {Object} req - request data from client
  *
  */
-function buildJobsMessage(req) {
+function buildJobsMessage(req, limit, url) {
   let page = req.query.p ? parseInt(req.query.p) : 0;
   let message = Object.assign(buildDefaultMessage(req, "jobs"), {
     style: 'stylesheets/style_jobs.css',
   });
 
-  return db.query('select * from Job where archived = 0 order by timestamp desc limit 7 offset ?', {
-      replacements: [page * 6],
+  return db.query('select * from Job where archived = 0 order by timestamp desc limit ? offset ?', {
+      replacements: [limit + 1, page * limit],
       type:db.QueryTypes.SELECT,
     }).then((queryResults) => {
       let jobs = queryResults;
 
       if(jobs && jobs.length != 0) {
-        message["jobs"] = jobs.slice(0, 6);
+        message["jobs"] = jobs.slice(0, limit);
+        message["url"] = url;
         message["page"] = page;
         message["page_prev"] = page > 0 ? page - 1 : null;
-        message["page_next"] = jobs.length == 7 ? page + 1 : null;
+        message["page_next"] = jobs.length == (limit + 1) ? page + 1 : null;
         return message;
       }
     });
@@ -198,7 +200,7 @@ router.get('/logout', function(req, res) {
 
 /* GET stories page */
 router.get('/stories', function(req, res, next) {
-  buildStoriesMessage(req)
+  buildStoriesMessage(req, 6, 'stories')
     .then((message) => {
       res.render('stories', message);
     })
@@ -211,7 +213,7 @@ router.get('/stories', function(req, res, next) {
 
 /* GET jobs page */
 router.get('/jobs', function(req, res, next) {
-  buildJobsMessage(req)
+  buildJobsMessage(req, 6, 'jobs')
     .then((message) => {
       res.render('jobs', message);
     })
@@ -270,8 +272,8 @@ router.get('/admin_discover_new', function(req, res, next) {
 });
 
 /* GET admin current stories page */
-router.get('/admin_current_stories', function(req, res, next) {
-  buildStoriesMessage(req)
+router.get('/admin_current_stories', auth.ensureAdminLoggedIn, function(req, res, next) {
+  buildStoriesMessage(req, 10, 'admin_current_stories')
     .then((message) => {
       res.render('admin_current_stories', message);
     })
@@ -284,7 +286,15 @@ router.get('/admin_current_stories', function(req, res, next) {
 
 /* GET admin current jobs page */
 router.get('/admin_current_jobs', function(req, res, next) {
-  res.render('admin_current_jobs', buildJobsMessage(req));
+  buildJobsMessage(req, 10, 'admin_current_jobs')
+    .then((message) => {
+      res.render('admin_current_jobs', message);
+    })
+    .catch((error) => {
+      // Unexpected internal server error
+      console.error(error);
+      next(createError(500));
+    })
 });
 
 /* POST login - authenticate user */

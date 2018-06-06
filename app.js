@@ -25,6 +25,7 @@ app.set('view engine', 'hbs');
 hbs.registerPartial("alerts", fs.readFileSync("views/alerts.hbs", 'utf8'));
 hbs.registerPartial("navbar", fs.readFileSync("views/navbar.hbs", 'utf8'));
 hbs.registerPartial("admin_navbar", fs.readFileSync("views/admin_navbar.hbs", 'utf8'));
+hbs.registerPartial("pagination", fs.readFileSync("views/pagination.hbs", 'utf8'));
 
 // Register helpers
 hbs.registerHelper('if_equals', function(arg1, arg2, options) {

@@ -1,12 +1,12 @@
 <div class="admin-current-jobs">
   <h3 class="story-title">List of Current Jobs</h2>
   <div class="list-group">
-    {{#each job}}
+    {{#each jobs}}
     <button type="button" class="list-group-item list-group-item-action">
       <div class="current-box">
-        <h4>{{company}}</h3>
-        <p>{{position}}</p>
-        <p>{{location}}</p>
+        <h4>{{this.company_name}}</h3>
+        <p>{{this.position}}</p>
+        <p>{{this.location}}</p>
       </div>
       <div class="icon-box">
         <a class="icon">
@@ -23,6 +23,5 @@
   </div>
 </div>
 
-<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
-  integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
-  crossorigin="anonymous"></script>
+<!-- Pagination -->
+{{>pagination}}

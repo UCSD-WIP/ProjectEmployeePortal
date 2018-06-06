@@ -3,6 +3,7 @@
  * Handles user authentication configuration, and provides authentication tools
  */
 
+var createError = require('http-errors');
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var bcrypt = require("bcrypt");
@@ -223,8 +224,8 @@ module.exports = {
     if (req.user && req.user.role_name == "administrator") {
       return next();
     } else {
-      req.flash('error', "You must be logged in to continue");
-      return res.redirect('/login');
+      // 404 to an unauthorized person
+      return next(createError(404));
     }
   },
 }
