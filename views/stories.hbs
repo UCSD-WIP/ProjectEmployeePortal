@@ -39,13 +39,14 @@
   </div>
 
 </div>
+
 <!-- Pagination -->
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-    <li class="page-item {{#if no_prev}}disabled{{/if}}">
+    <li class="page-item {{#if_equals page_prev null}}disabled{{/if_equals}}">
       <a class="page-link" href="/stories?p={{page_prev}}" tabindex="-1">&laquo;</a>
     </li>
-    <li class="page-item {{#if no_next}}disabled{{/if}}">
+    <li class="page-item {{#if_equals page_next null}}disabled{{/if_equals}}">
       <a class="page-link" href="/stories?p={{page_next}}">&raquo;</a>
     </li>
   </ul>

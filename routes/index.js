@@ -72,10 +72,8 @@ function buildStoriesMessage(req) {
       if(stories && stories.length != 0) {
         message["stories"] = stories.slice(0, 6);
         message["page"] = page;
-        message["page_prev"] = page - 1;
-        message["page_next"] = page + 1;
-        message["no_prev"] = page <= 0;
-        message["no_next"] = page >= 0 && stories.length != 7;
+        message["page_prev"] = page > 0 ? page - 1 : null;
+        message["page_next"] = stories.length == 7 ? page + 1 : null;
         return message;
       }
     });
@@ -97,15 +95,13 @@ function buildJobsMessage(req) {
       replacements: [page * 6],
       type:db.QueryTypes.SELECT,
     }).then((queryResults) => {
-      let jobs = queryResults
+      let jobs = queryResults;
 
       if(jobs && jobs.length != 0) {
         message["jobs"] = jobs.slice(0, 6);
         message["page"] = page;
-        message["page_prev"] = page - 1;
-        message["page_next"] = page + 1;
-        message["no_prev"] = page == 0;
-        message["no_next"] = jobs.length != 7;
+        message["page_prev"] = page > 0 ? page - 1 : null;
+        message["page_next"] = jobs.length == 7 ? page + 1 : null;
         return message;
       }
     });
@@ -124,7 +120,7 @@ function buildJobMessage(req){
     replacements: [req.query.id],
     type:db.QueryTypes.SELECT
   }).then((queryResults) => {
-    let job = queryResults[0]
+    let job = queryResults[0];
 
     if(job && job.length != 0) {
       message["job"] = job
@@ -154,7 +150,7 @@ function buildIndexMessage(req) {
 
   return db.query('select * from Story where featured = 1 order by timestamp desc')
     .then((queryResults) => {
-      let stories = queryResults[0]
+      let stories = queryResults[0];
 
       if(stories && stories.length != 0) {
         message["stories"] = stories;
