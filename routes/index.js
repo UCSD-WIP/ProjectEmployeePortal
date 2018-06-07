@@ -488,7 +488,7 @@ router.get('/uuid-gen', (req, res) => {
 });
 
 /* GET new-job - visit new job page */
-router.get('/new-job', (req, res) => {
+router.get('/new_job', (req, res) => {
   res.render('new_job', buildDefaultMessage(req, "/new-job"));
 });
 
