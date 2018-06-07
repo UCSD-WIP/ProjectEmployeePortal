@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500px" height="500px" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Desktop Portrait</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="26.4648438%" x2="50%" y2="96.6697226%" id="linearGradient-1">
+            <stop stop-color="#1B9AAA" offset="0%"></stop>
+            <stop stop-color="#000000" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="29.1493941%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#1B9AAA" stop-opacity="0.318132926" offset="0%"></stop>
+            <stop stop-color="#429321" offset="100%"></stop>
+        </linearGradient>
+        <text id="text-3" font-family="LucidaGrande-Bold, Lucida Grande" font-size="303" font-weight="bold">
+            <tspan x="66.0991211" y="355">EP</tspan>
+        </text>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Portrait">
+            <g id="EP">
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#text-3"></use>
+                <use fill="url(#linearGradient-2)" fill-rule="evenodd" xlink:href="#text-3"></use>
+                <use fill="#1B9AAA" fill-opacity="0.547412817" xlink:href="#text-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>

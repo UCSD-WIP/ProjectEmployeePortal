@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500px" height="500px" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #FFFFFF;">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Desktop Portrait</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#1B9AAA" offset="0%"></stop>
+            <stop stop-color="#000000" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="13.4303253%" y1="49.7500002%" x2="102.16769%" y2="105.92854%" id="linearGradient-2">
+            <stop stop-color="#1B9AAA" offset="0%"></stop>
+            <stop stop-color="#6BD4EA" offset="43.1580835%"></stop>
+            <stop stop-color="#54D17E" stop-opacity="0.825346642" offset="100%"></stop>
+            <stop stop-color="#5BD47D" stop-opacity="0.812641531" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-3" x="0" y="0" width="500" height="500"></rect>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="500" height="500" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+        <text id="text-7" font-family="LucidaGrande-Bold, Lucida Grande" font-size="250" font-weight="bold">
+            <tspan x="98.7666016" y="350">EP</tspan>
+        </text>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Portrait">
+            <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                <use fill="url(#linearGradient-2)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-3"></use>
+                <use stroke="#1B9AAA" mask="url(#mask-6)" stroke-width="2" xlink:href="#path-3"></use>
+            </g>
+            <g id="EP" fill="#FFFFFF">
+                <use fill-rule="evenodd" xlink:href="#text-7"></use>
+                <use fill-rule="evenodd" xlink:href="#text-7"></use>
+                <use fill-opacity="1" xlink:href="#text-7"></use>
+            </g>
+        </g>
+    </g>
+</svg>

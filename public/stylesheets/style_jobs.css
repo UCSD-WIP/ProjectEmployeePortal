@@ -1,40 +1,19 @@
 .job-card-deck {
   align-items: center;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   padding-bottom: 10px;
   margin: auto;
-  padding-left: 5%;
+  max-width: 1000px;
+}
+
+.col {
+  padding: 25px;
 }
 
 .job-card {
   background-color: transparent;
   border-radius: 30px;
-  margin: 25px;
-  max-width: 100%;
   border-style: solid;
   border-radius: 30px;
-  border-color: #e9ecef;
-
-}
-
-.job-card-deck {
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding-bottom: 10px;
-  margin: auto;
-  padding-left: 5%;
-}
-
-.job-card {
-  background-color: transparent;
-  border-radius: 30px;
-  margin: 25px;
-  max-width: 75%;
-  border-style: solid;
-  border-radius: 30px;
-  border-color: #e9ecef;
 }
 
 .card-img-top {
@@ -51,10 +30,6 @@
   text-align: center;
   margin: 15px;
   padding-top: 15px;
-}
-
-.card-body {
-  font-size: 50%;
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
