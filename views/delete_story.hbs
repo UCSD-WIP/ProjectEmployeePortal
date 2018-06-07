@@ -1,0 +1,17 @@
+<div class="admin-current-story" style="padding: 20px">
+  <h3 class="story-title" style="text-align: center">List of Archived Resources</h2>
+  <div class="list-group">
+    {{#each story}}
+    <button type="button" class="list-group-item list-group-item-action">
+      <div class="current-box">
+        <h4>{{title}}</h3>
+        <p>{{description}}</p>
+      </div>
+    </button>
+
+    {{/each}}
+  </div>
+</div>
+
+<!-- Pagination -->
+{{>pagination}}

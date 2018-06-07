@@ -1,0 +1,17 @@
+<div class="admin-current-jobs" style="padding: 20px">
+  <h3 class="story-title" style="text-align: center">List of Archived Jobs</h2>
+  <div class="list-group">
+    {{#each job}}
+    <button type="button" class="list-group-item list-group-item-action">
+      <div class="current-box">
+        <h4>{{company_name}}</h3>
+        <p>{{position}}</p>
+        <p>{{location}}</p>
+      </div>
+    </button>
+    {{/each}}
+  </div>
+</div>
+
+<!-- Pagination -->
+{{>pagination}}

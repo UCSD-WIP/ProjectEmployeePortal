@@ -29,7 +29,7 @@ function buildDefaultMessage(req, current_page) {
     info: req.flash('info'),
     success: req.flash('success'),
   }
-  
+
   return message;
 }
 
@@ -117,7 +117,7 @@ function buildJobMessage(req){
   if(!req.query.id) {
     return Promise.reject(new MessageError("Id does not exist"));
   }
-  
+
   let message = Object.assign(buildDefaultMessage(req, "stories"),{
     style:'stylesheets/style_story.css',
   });
@@ -156,6 +156,32 @@ function buildEditStoryMessage(req) {
       description: "world",
       content:"doggos r great"
     }
+  });
+}
+
+function buildDeleteStoryMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "stories"),{
+    style: 'stylesheets/style_stories.css',
+    story: [
+       {
+          title: "hello world",
+          description: "hope this works"
+        },
+        {
+          title: "hello world 2.0",
+          description: "i love corgis"
+        }]
+  });
+}
+
+function buildDeleteJobMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "jobs"),{
+    style: 'stylesheets/style_jobs.css',
+    job: [{
+      company_name: "hello",
+      position: "world",
+      location:"doggos r great",
+    }]
   });
 }
 
@@ -345,6 +371,14 @@ router.get('/edit_job', function(req, res, next) {
   res.render('edit_job', buildEditJobMessage(req));
 });
 
+router.get('/delete_story', function(req, res, next) {
+  res.render('delete_story', buildDeleteStoryMessage(req));
+});
+
+router.get('/delete_job', function(req, res, next) {
+  res.render('delete_job', buildDeleteJobMessage(req));
+});
+
 /* POST login - authenticate user */
 router.post('/login', (req, res, next) => {
   db.query("select * from User u, Role r where username = ? and u.role_id = r.id", {
@@ -356,7 +390,7 @@ router.post('/login', (req, res, next) => {
     let successRedirect = '/'
 
     if(user && user.role_name == "administrator") {
-      successRedirect = '/admin_home';      
+      successRedirect = '/admin_home';
     }
 
     passport.authenticate('local', {
