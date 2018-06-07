@@ -159,6 +159,21 @@ function buildEditStoryMessage(req) {
   });
 }
 
+function buildEditJobMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "jobs"),{
+    style: 'stylesheets/style_create_job.css',
+    job: {
+      company_name: "hello",
+      position: "world",
+      location:"doggos r great",
+      job_field:"asdf",
+      email:"asdf",
+      description:"asdf",
+      experience:"asdf"
+    }
+  });
+}
+
 /**
  * Returns the message data to be sent in the index page
  *
@@ -287,8 +302,8 @@ router.get('/story', function(req, res, next){
 });
 
 /* GET new job page */
-router.get('/admin_postajob', function(req, res, next) {
-  res.render('admin_postajob', buildCreateJobMessage(req, "jobs"));
+router.get('/post_job', function(req, res, next) {
+  res.render('post_job', buildCreateJobMessage(req, "jobs"));
 });
 
 /* GET admin discover new page */
@@ -322,14 +337,12 @@ router.get('/admin_current_jobs', function(req, res, next) {
     })
 });
 
-/* GET admin_postajob page */
-/* GET about page */
-router.get('/admin_postajob', function(req, res, next) {
-  res.render('admin_postajob', buildDefaultMessage(req, "admin_postajob"));
-});
-
 router.get('/edit_story', function(req, res, next) {
   res.render('edit_story', buildEditStoryMessage(req));
+});
+
+router.get('/edit_job', function(req, res, next) {
+  res.render('edit_job', buildEditJobMessage(req));
 });
 
 /* POST login - authenticate user */
