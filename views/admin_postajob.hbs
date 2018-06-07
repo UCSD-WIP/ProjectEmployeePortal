@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="create_job_container">
   <!-- Check if admin -->
   {{!-- {{#if_equals user.role_name "administrator"}} --}}  
   <h3 class="text-center" style="color: #08AAB1">Post a Job</h3>
@@ -31,6 +31,21 @@
         <div class="form-group">
           <label for="experience" style="color: #08AAB1"> Experience </label>
           <input type="text" class="form-control" name="experience" required>
+        </div>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+        <div class="form-group">
+          <label for="icon" style="color: #08AAB1">Icon</label>
+          <select class="form-control" id="icon">
+            <option value="fas fa-rocket">&#xf135; Rocket</option>
+            <option value="fas fa-flask">&#xf0c3; Flask</option>
+            <option value="fas fa-heartbeat">&#xf21e; Biology</option>
+            <option value="fas fa-code">&#xf121; Code</option>
+            <option value="fas fa-desktop">&#xf108; Desktop</option>
+            <option value="fas fa-plug">&#xf1e6; Plug</option>
+            <option value="fas fa-cogs">&#xf085; Cogs</option>
+            <option value="fas fa-leaf">&#xf06c; Leaf</option>
+            <option value="fas fa-building">&#xf1ad; Building</option>
+         </select>
         </div>
         <div class="form-group" style="margin:0px">
           <label for="jobDescription" style="color: #08AAB1;"> Job Description </label>
