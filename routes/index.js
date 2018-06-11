@@ -29,7 +29,7 @@ function buildDefaultMessage(req, current_page) {
     info: req.flash('info'),
     success: req.flash('success'),
   }
-  
+
   return message;
 }
 
@@ -117,7 +117,7 @@ function buildJobMessage(req){
   if(!req.query.id) {
     return Promise.reject(new MessageError("Id does not exist"));
   }
-  
+
   let message = Object.assign(buildDefaultMessage(req, "stories"),{
     style:'stylesheets/style_story.css',
   });
@@ -141,6 +141,63 @@ function buildAdminHomeMessage(req){
   return Object.assign(buildDefaultMessage(req), {
     style:'stylesheets/style_admin_home.css'
   })
+}
+
+function buildCreateJobMessage(req){
+  return Object.assign(buildDefaultMessage(req), {
+    style:'stylesheets/style_create_job.css'
+  })
+}
+
+function buildEditStoryMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "stories"),{
+    story: {
+      title: "hello",
+      description: "world",
+      content:"doggos r great"
+    }
+  });
+}
+
+function buildDeleteStoryMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "stories"),{
+    style: 'stylesheets/style_stories.css',
+    story: [
+       {
+          title: "hello world",
+          description: "hope this works"
+        },
+        {
+          title: "hello world 2.0",
+          description: "i love corgis"
+        }]
+  });
+}
+
+function buildDeleteJobMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "jobs"),{
+    style: 'stylesheets/style_jobs.css',
+    job: [{
+      company_name: "hello",
+      position: "world",
+      location:"doggos r great",
+    }]
+  });
+}
+
+function buildEditJobMessage(req) {
+  return Object.assign(buildDefaultMessage(req, "jobs"),{
+    style: 'stylesheets/style_create_job.css',
+    job: {
+      company_name: "hello",
+      position: "world",
+      location:"doggos r great",
+      job_field:"asdf",
+      email:"asdf",
+      description:"asdf",
+      experience:"asdf"
+    }
+  });
 }
 
 /**
@@ -270,9 +327,14 @@ router.get('/story', function(req, res, next){
     });
 });
 
+/* GET new job page */
+router.get('/post_job', function(req, res, next) {
+  res.render('post_job', buildCreateJobMessage(req, "jobs"));
+});
+
 /* GET admin discover new page */
-router.get('/admin_discover_new', function(req, res, next) {
-  res.render('admin_discover_new', buildDefaultMessage(req, "about"));
+router.get('/post_story', function(req, res, next) {
+  res.render('post_story', buildDefaultMessage(req, "stories"));
 });
 
 /* GET admin current stories page */
@@ -301,10 +363,20 @@ router.get('/admin_current_jobs', function(req, res, next) {
     })
 });
 
-/* GET admin_postajob page */
-/* GET about page */
-router.get('/admin_postajob', function(req, res, next) {
-  res.render('admin_postajob', buildDefaultMessage(req, "admin_postajob"));
+router.get('/edit_story', function(req, res, next) {
+  res.render('edit_story', buildEditStoryMessage(req));
+});
+
+router.get('/edit_job', function(req, res, next) {
+  res.render('edit_job', buildEditJobMessage(req));
+});
+
+router.get('/delete_story', function(req, res, next) {
+  res.render('delete_story', buildDeleteStoryMessage(req));
+});
+
+router.get('/delete_job', function(req, res, next) {
+  res.render('delete_job', buildDeleteJobMessage(req));
 });
 
 /* POST login - authenticate user */
@@ -318,7 +390,7 @@ router.post('/login', (req, res, next) => {
     let successRedirect = '/'
 
     if(user && user.role_name == "administrator") {
-      successRedirect = '/admin_home';      
+      successRedirect = '/admin_home';
     }
 
     passport.authenticate('local', {
@@ -416,7 +488,7 @@ router.get('/uuid-gen', (req, res) => {
 });
 
 /* GET new-job - visit new job page */
-router.get('/new-job', (req, res) => {
+router.get('/new_job', (req, res) => {
   res.render('new_job', buildDefaultMessage(req, "/new-job"));
 });
 
